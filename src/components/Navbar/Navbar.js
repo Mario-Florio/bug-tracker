@@ -1,7 +1,7 @@
 import "./Navbar.css"
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
-// import events from "../../utils/pub-sub";
+import events from "../../utils/pub-sub";
 
 function Navbar() {
 
@@ -48,7 +48,7 @@ function HamburgerMenu() {
 
     const handleClick = () => {
         setHamburgerIsActive(hamburgerIsActive ? false : true);
-        // events.emit("Hamburger Menu Toggled", hamburgerIsActive);
+        events.emit("Hamburger Menu Toggled", hamburgerIsActive);
     }
 
     return (

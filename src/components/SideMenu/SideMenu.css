@@ -1,0 +1,76 @@
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sideMenu {
+    z-index: 1;
+    position: fixed;
+    right: -350px;
+    background-color: rgb(69, 69, 69);
+    height: 100dvh;
+    width: 350px;
+    transition-duration: .4s;
+}
+.sideMenu--active {
+    z-index: 1;
+    position: fixed;
+    right: -350px;
+    background-color: rgb(69, 69, 69);
+    height: 100dvh;
+    width: 350px;
+    transition-duration: .4s;
+}
+
+.sideMenu__linksWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sideMenu__link {
+    color: rgb(182, 182, 182);
+    text-align: center;
+    padding: 1rem 1.5rem;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+}
+
+.sideMenu__link:hover {
+    background-color: rgba(128, 128, 128, 0.27);
+}
+
+.sideMenu__link--active {
+    color: rgb(182, 182, 182);
+    text-align: center;
+    background-color: black;
+    padding: 1rem 1.5rem .85rem;
+    width: 100%;
+    text-decoration: none;
+    border-bottom: solid 2px rgb(0, 119, 255);
+    cursor: initial;
+}
+
+@media screen and (max-width: 800px) {
+    .sideMenu {
+        z-index: 1;
+        position: fixed;
+        right: -350px;
+        background-color: rgb(69, 69, 69);
+        height: 100dvh;
+        width: 350px;
+        transition-duration: .4s;
+    }
+    
+    .sideMenu--active {
+        z-index: 1;
+        position: fixed;
+        right: 0;
+        background-color: rgb(69, 69, 69);
+        height: 100dvh;
+        width: 350px;
+        transition-duration: .4s;
+    }
+}
