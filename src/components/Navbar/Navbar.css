@@ -1,0 +1,111 @@
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    z-index: 1;
+    position: sticky;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+}
+
+.navbar__logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: rgb(182, 182, 182);
+    text-decoration: none;
+    margin-left: 80px;
+    height: 69px;
+    transition-duration: .4s;
+}
+
+.navbar__linksWrapper {
+    display: flex;
+    height: 69px;
+}
+
+.navbar__link {
+    display: flex;
+    align-items: center;
+    color: rgb(182, 182, 182);
+    text-decoration: none;
+    padding: 0 1em;
+    height: 100%;
+}
+
+.navbar__link:hover {
+    background-color: rgba(128, 128, 128, 0.27);
+}
+
+.navbar__link--active {
+    display: flex;
+    align-items: center;
+    color: rgb(182, 182, 182);
+    text-decoration: none;
+    padding: 0 1em;
+    height: 100%;
+    border-bottom: solid 2px rgb(0, 119, 255);
+    cursor: initial;
+}
+
+/* Hamburger Menu */
+
+.navbar__hamburgerMenu {
+    display: none;
+    margin-right: 2rem;
+    cursor: pointer;
+}
+
+.navbar__hamburgerMenu--active {
+    display: none;
+    margin-right: 2rem;
+    cursor: pointer;
+}
+
+.hamburgerMenu__bar1, .hamburgerMenu__bar2, .hamburgerMenu__bar3 {
+    background-color: rgb(182, 182, 182);
+    margin: 5px 0;
+    height: 3px;
+    width: 30px;
+    border-radius: 1px;
+    transition: 0.4s;
+}
+
+.navbar__hamburgerMenu--active > .hamburgerMenu__bar1 {
+    transform: rotate(-45deg) translate(-6px, 5px);
+}
+
+.navbar__hamburgerMenu--active > .hamburgerMenu__bar2 {
+    opacity: 0;
+}
+
+.navbar__hamburgerMenu--active > .hamburgerMenu__bar3 {
+    transform: rotate(45deg) translate(-6px, -5px);
+}
+
+@media all and (max-width: 700px) {
+    .navbar__logo {
+        margin-left: 2rem;
+        transition-duration: .4s;
+    }
+
+    .navbar__linksWrapper {
+        display: none;
+    }
+
+    .navbar__hamburgerMenu {
+        display: initial;
+    }
+
+    .navbar__hamburgerMenu--active {
+        display: initial;
+    }
+}

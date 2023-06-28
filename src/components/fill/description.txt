@@ -1,0 +1,3 @@
+Folder to simply fill space while parent folder is still relatively empty.
+This is done in order to make navigation easier in text editor,
+as VSCode expands horizontal within folder until mullitple folders are present.
