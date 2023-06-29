@@ -22,6 +22,7 @@ function Navbar() {
                     <NavLink 
                         to="/" 
                         className={({ isActive }) => isActive ? 'navbar__link--active' : "navbar__link"}
+                        data-testid="navbar__dashboardLink"
                     >
                         Dashboard
                     </NavLink>
@@ -30,6 +31,7 @@ function Navbar() {
                     <NavLink 
                         to="/bugs" 
                         className={({ isActive }) => isActive ? 'navbar__link--active' : "navbar__link"}
+                        data-testid="navbar__bugsLink"
                     >
                         Bugs
                     </NavLink>
