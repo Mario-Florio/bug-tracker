@@ -25,6 +25,7 @@ function SideMenu() {
                     <NavLink 
                         to="/" 
                         className={({ isActive }) => isActive ? 'sideMenu__link--active' : "sideMenu__link"}
+                        data-testid="sideMenu__dashboardLink"
                     >
                         Dashboard
                     </NavLink>
@@ -33,6 +34,7 @@ function SideMenu() {
                     <NavLink 
                         to="/bugs" 
                         className={({ isActive }) => isActive ? 'sideMenu__link--active' : "sideMenu__link"}
+                        data-testid="sideMenu__bugsLink"
                     >
                         Bugs
                     </NavLink>

@@ -8,11 +8,11 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Navbar/>
-        <SideMenu/>
-        <Routes>
-          <Route path="/" element={<h1>Dashboard</h1>}/>
-          <Route path="/bugs" element={<h1>Bugs</h1>}/>
-        </Routes>
+          <SideMenu/>
+          <Routes>
+            <Route path="/" element={<h1>Dashboard</h1>}/>
+            <Route path="/bugs" element={<h1>Bugs</h1>}/>
+          </Routes>
       </BrowserRouter>
     </div>
   );
