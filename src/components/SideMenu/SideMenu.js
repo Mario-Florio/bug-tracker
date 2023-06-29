@@ -20,20 +20,24 @@ function SideMenu() {
 
     return(
         <div className={sideMenuIsActive ? "sideMenu--active" : "sideMenu"}>
-            <div className="sideMenu__linksWrapper">
+            <ul className="sideMenu__linksWrapper">
+                <li>
                     <NavLink 
                         to="/" 
                         className={({ isActive }) => isActive ? 'sideMenu__link--active' : "sideMenu__link"}
                     >
                         Dashboard
                     </NavLink>
+                </li>
+                <li>
                     <NavLink 
                         to="/bugs" 
                         className={({ isActive }) => isActive ? 'sideMenu__link--active' : "sideMenu__link"}
                     >
                         Bugs
                     </NavLink>
-            </div>
+                </li>
+            </ul>
         </div>
     );
 }

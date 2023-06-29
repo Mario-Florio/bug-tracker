@@ -29,12 +29,17 @@ ul {
     align-items: center;
 }
 
+li {
+    width: 100%;
+}
+
 .sideMenu__link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: rgb(182, 182, 182);
     text-align: center;
     padding: 1rem 1.5rem;
-    height: 100%;
-    width: 100%;
     text-decoration: none;
 }
 
@@ -43,11 +48,13 @@ ul {
 }
 
 .sideMenu__link--active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: rgb(182, 182, 182);
     text-align: center;
     background-color: black;
     padding: 1rem 1.5rem .85rem;
-    width: 100%;
     text-decoration: none;
     border-bottom: solid 2px rgb(0, 119, 255);
     cursor: initial;
