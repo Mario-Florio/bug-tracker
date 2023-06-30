@@ -10,11 +10,11 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Navbar/>
-          <SideMenu/>
-          <Routes>
-            <Route path="/" element={<Dashboard/>}/>
-            <Route path="/bugs" element={<Bugs/>}/>
-          </Routes>
+        <SideMenu/>
+        <Routes>
+          <Route path="/" element={<Dashboard/>}/>
+          <Route path="/bugs" element={<Bugs/>}/>
+        </Routes>
       </BrowserRouter>
     </div>
   );
