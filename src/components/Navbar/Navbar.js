@@ -17,7 +17,7 @@ function Navbar() {
                     </NavLink>
                 </li>
             </ul>
-            <ul className="navbar__linksWrapper" style={{marginRight: "80px"}}>
+            <ul className="navbar__linksWrapper">
                 <li>
                     <NavLink 
                         to="/" 
