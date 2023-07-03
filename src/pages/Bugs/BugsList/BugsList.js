@@ -1,11 +1,11 @@
 import './BugsList.css';
-import bugsList from '../../../bugs';
+import bugs from '../../../bugs';
 import uniqid from 'uniqid';
 import { useState } from 'react';
 
 function BugsList() {
 
-    const [bugs, setBugs] = useState(bugsList);
+    const [bugsList, setBugsList] = useState(bugs.getBugs());
     const [formIsActive, setFormIsActive] = useState(false);
     const [title, setTitle] = useState("");
 
@@ -15,15 +15,15 @@ function BugsList() {
 
     const handleSubmit = e => {
         e.preventDefault();
-        setBugs([...bugs, { id: uniqid(), title: title }]);
+        bugs.add({ id: uniqid(), title: title });
+        setBugsList(bugs.getBugs());
         setTitle("");
         setFormIsActive(false);
-        console.log(bugs)
     }
 
     return(
         <div>
-            {bugs.map(bug => <BugTicket key={uniqid()} bugs={bugs} dis={bug} setBugs={setBugs}/>)}
+            {bugsList.map(bug => <BugTicket key={uniqid()} bug={bug} setBugsList={setBugsList}/>)}
             {formIsActive ?
                 <form style={{marginLeft: "2rem"}}>
                     <input type="text" onChange={handleChange} placeholder="Title"/>
@@ -47,7 +47,7 @@ function BugTicket(props) {
     const [editable, setEditable] = useState(false);
     const [title, setTitle] = useState("");
 
-    const { dis, bugs, setBugs } = props;
+    const { bug, setBugsList } = props;
 
     const handleChange = e => {
         setTitle(e.target.value);
@@ -55,18 +55,15 @@ function BugTicket(props) {
 
     const handleSubmit = e => {
         e.preventDefault();
-        setBugs([...bugs.map(bug => {
-            if (bug.id === dis.id) {
-                bug.title = title;
-                return bug;
-            } else return bug;
-        })])
+        bugs.edit(bug.id, { id: bug.id, title: title });
+        setBugsList(bugs.getBugs());
         setTitle("");
         setEditable(false);
     };
 
     const handleDeletion = () => {
-        setBugs([...bugs.filter(bug => bug.id !== dis.id)]);
+        bugs.delete(bug.id);
+        setBugsList(bugs.getBugs());
     };
 
     return(
@@ -83,12 +80,12 @@ function BugTicket(props) {
         >
             {editable ?
             <form>
-                <input type="text" onChange={handleChange} placeholder={dis.title}/>
+                <input type="text" onChange={handleChange} placeholder={bug.title}/>
                 <button onClick={handleSubmit}>Confirm</button>
             </form>
             :
             <>
-                <h4>{dis.title}</h4>
+                <h4>{bug.title}</h4>
                 <button onClick={() => setEditable(true)}>Edit</button>
             </>}
             <button onClick={handleDeletion}>Delete</button>
