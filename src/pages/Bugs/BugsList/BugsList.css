@@ -1,0 +1,21 @@
+
+.bugsList {
+    margin: 0 5rem;
+    transition-duration: .4s;
+}
+
+.bugsList__ticket {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgb(182, 182, 182);
+    height: 62.05px;
+    border-bottom: solid .5px rgb(182, 182, 182);
+}
+
+@media all and (max-width: 700px) {
+    .bugsList {
+        margin: 0 2rem;
+        transition-duration: .4s;
+    }
+}

@@ -22,16 +22,15 @@ function BugsList() {
     }
 
     return(
-        <div>
+        <div className="bugsList">
             {bugsList.map(bug => <BugTicket key={uniqid()} bug={bug} setBugsList={setBugsList}/>)}
             {formIsActive ?
-                <form style={{marginLeft: "2rem"}}>
+                <form>
                     <input type="text" onChange={handleChange} placeholder="Title"/>
                     <button onClick={handleSubmit}>Submit</button>
                 </form>
             :
             <button 
-                style={{marginLeft: "2rem"}} 
                 onClick={() => formIsActive ? setFormIsActive(false) : setFormIsActive(true)}
             >
                 Add Bug
@@ -67,17 +66,7 @@ function BugTicket(props) {
     };
 
     return(
-        <div
-            style={{
-                display: "flex", 
-                justifyContent: "space-between",
-                alignItems: "center",
-                color: "rgb(182, 182, 182)",
-                margin: "0 2rem",
-                height: "62.05px",
-                borderBottom: "solid .5px rgb(182, 182, 182)",
-            }}
-        >
+        <div className="bugsList__ticket">
             {editable ?
             <form>
                 <input type="text" onChange={handleChange} placeholder={bug.title}/>

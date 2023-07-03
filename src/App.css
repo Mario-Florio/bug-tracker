@@ -3,4 +3,12 @@
     font-weight: 500;
     color: rgb(182, 182, 182);
     margin-left: 5rem; 
+    transition-duration: .4s;
+}
+
+@media all and (max-width: 700px) {
+    .page__header {
+        margin-left: 2rem;
+        transition-duration: .4s;
+    }
 }
