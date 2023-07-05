@@ -1,0 +1,21 @@
+
+.resizableGrid {
+    margin: 0 3.8rem;
+    max-width: 100vw;
+    max-height: 100vh;
+    transition-duration: 0.4s;
+}
+
+.grid-comp {
+    border-radius: 5px;
+    background-color: #65656536;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+@media all and (max-width: 700px) {
+    .resizableGrid {
+        margin: 0 .8rem;
+        transition-duration: 0.4s;
+    }
+}

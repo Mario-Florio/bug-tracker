@@ -1,6 +1,6 @@
 
 .sideMenu {
-    z-index: 1;
+    z-index: 2;
     position: fixed;
     right: -350px;
     background: linear-gradient(to bottom, rgb(19, 19, 19), rgb(31, 31, 31));
@@ -11,7 +11,7 @@
     transition-duration: .4s;
 }
 .sideMenu--active {
-    z-index: 1;
+    z-index: 2;
     position: fixed;
     right: -350px;
     background: linear-gradient(to bottom, rgb(19, 19, 19), rgb(31, 31, 31));
@@ -58,7 +58,7 @@
 
 @media screen and (max-width: 700px) {
     .sideMenu {
-        z-index: 1;
+        z-index: 2;
         position: fixed;
         right: -350px;
         background: linear-gradient(to bottom, rgb(19, 19, 19), rgb(31, 31, 31));
@@ -70,7 +70,7 @@
     }
     
     .sideMenu--active {
-        z-index: 1;
+        z-index: 2;
         position: fixed;
         right: 0;
         background: linear-gradient(to bottom, rgb(19, 19, 19), rgb(31, 31, 31));
