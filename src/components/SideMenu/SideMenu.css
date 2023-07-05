@@ -3,7 +3,9 @@
     z-index: 1;
     position: fixed;
     right: -350px;
-    background-color: rgb(69, 69, 69);
+    background: linear-gradient(to bottom, rgb(19, 19, 19), rgb(31, 31, 31));
+    background-repeat: no-repeat;
+    background-size: cover;
     height: 100dvh;
     width: 350px;
     transition-duration: .4s;
@@ -12,7 +14,9 @@
     z-index: 1;
     position: fixed;
     right: -350px;
-    background-color: rgb(69, 69, 69);
+    background: linear-gradient(to bottom, rgb(19, 19, 19), rgb(31, 31, 31));
+    background-repeat: no-repeat;
+    background-size: cover;
     height: 100dvh;
     width: 350px;
     transition-duration: .4s;
@@ -57,7 +61,9 @@
         z-index: 1;
         position: fixed;
         right: -350px;
-        background-color: rgb(69, 69, 69);
+        background: linear-gradient(to bottom, rgb(19, 19, 19), rgb(31, 31, 31));
+        background-repeat: no-repeat;
+        background-size: cover;
         height: 100dvh;
         width: 350px;
         transition-duration: .4s;
@@ -67,7 +73,9 @@
         z-index: 1;
         position: fixed;
         right: 0;
-        background-color: rgb(69, 69, 69);
+        background: linear-gradient(to bottom, rgb(19, 19, 19), rgb(31, 31, 31));
+        background-repeat: no-repeat;
+        background-size: cover;
         height: 100dvh;
         width: 350px;
         transition-duration: .4s;
