@@ -1,0 +1,13 @@
+
+.bugInfo {
+    color: rgb(182, 182, 182);
+    margin: 0 5rem;
+    transition-duration: .4s;
+}
+
+@media all and (max-width: 700px) {
+    .bugInfo {
+        margin: 0 2rem;
+        transition-duration: .4s;
+    }
+}

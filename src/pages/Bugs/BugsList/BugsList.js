@@ -1,13 +1,13 @@
 import './BugsList.css';
-import bugs from '../../../bugs';
-import uniqid from 'uniqid';
 import { useState } from 'react';
+import uniqid from 'uniqid';
 
-function BugsList() {
+function BugsList(props) {
 
-    const [bugsList, setBugsList] = useState(bugs.getBugs());
     const [formIsActive, setFormIsActive] = useState(false);
     const [title, setTitle] = useState("");
+
+    const { bugs, bugsList, setBugsList, setBug } = props;
 
     const handleChange = e => {
         setTitle(e.target.value);
@@ -23,16 +23,17 @@ function BugsList() {
 
     return(
         <div className="bugsList">
-            {bugsList.map(bug => <BugTicket key={uniqid()} bug={bug} setBugsList={setBugsList}/>)}
+            {bugsList.map(bug => <BugTicket key={uniqid()} bug={bug} setBug={setBug} bugsList={bugsList}/>)}
             {formIsActive ?
+            <>
                 <form>
                     <input type="text" onChange={handleChange} placeholder="Title"/>
                     <button onClick={handleSubmit}>Submit</button>
                 </form>
+                <button onClick={() => setFormIsActive(false)}>Cancel</button>
+            </>
             :
-            <button 
-                onClick={() => formIsActive ? setFormIsActive(false) : setFormIsActive(true)}
-            >
+            <button onClick={() => setFormIsActive(true)}>
                 Add Bug
             </button>}
         </div>
@@ -43,41 +44,11 @@ export default BugsList;
 
 function BugTicket(props) {
 
-    const [editable, setEditable] = useState(false);
-    const [title, setTitle] = useState("");
-
-    const { bug, setBugsList } = props;
-
-    const handleChange = e => {
-        setTitle(e.target.value);
-    };
-
-    const handleSubmit = e => {
-        e.preventDefault();
-        bugs.edit(bug.id, { id: bug.id, title: title });
-        setBugsList(bugs.getBugs());
-        setTitle("");
-        setEditable(false);
-    };
-
-    const handleDeletion = () => {
-        bugs.delete(bug.id);
-        setBugsList(bugs.getBugs());
-    };
+    const { bug, setBug, bugsList } = props;
 
     return(
         <div className="bugsList__ticket">
-            {editable ?
-            <form>
-                <input type="text" onChange={handleChange} placeholder={bug.title}/>
-                <button onClick={handleSubmit}>Confirm</button>
-            </form>
-            :
-            <>
-                <h4>{bug.title}</h4>
-                <button onClick={() => setEditable(true)}>Edit</button>
-            </>}
-            <button onClick={handleDeletion}>Delete</button>
+            <h4 onClick={() => setBug(bugsList[bugsList.indexOf(bug)])}>{bug.title}</h4>
         </div>
     );
 }
