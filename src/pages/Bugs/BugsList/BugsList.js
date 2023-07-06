@@ -76,9 +76,9 @@ function BugTicket(props) {
 function Form(props) {
 
     const [name, setName] = useState("");
-    const [dueDate, setDueDate] = useState("");
+    const [dueDate, setDueDate] = useState(new Date());
     const [description, setDescription] = useState("");
-    const [status, setStatus] = useState(0);
+    const [status, setStatus] = useState(1);
 
     const { bugs, setBugsList, setFormIsActive } = props;
 
@@ -100,23 +100,24 @@ function Form(props) {
     };
 
     const handleStatusChange = e => {
-        setStatus(Number(e.target.value));
+        setStatus(new Date(e.target.value));
     };
 
     const handleSubmit = e => {
         e.preventDefault();
-        bugs.add({ 
+        let newBug = { 
             id: uniqid(), 
             name: name, 
-            dueDate: new Date(dueDate), 
+            dueDate: dueDate, 
             description: description, 
             status: status 
-        });
+        };
+        bugs.add(newBug);
         setBugsList(bugs.getBugs());
         setName("");
-        setDueDate("");
+        setDueDate(new Date());
         setDescription("");
-        setStatus(0);
+        setStatus(1);
         setFormIsActive(false);
     };
 

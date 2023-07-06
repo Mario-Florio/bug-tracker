@@ -88,7 +88,13 @@ function Form(props) {
     };
 
     const handleDueDateChange = e => {
-        setDueDate(e.target.value);
+        setDueDate(new Date(e.target.value));
+        // Date currently refers to day before:
+
+        // "You can force the time zone to be interpreted by 
+        // tacking on T00:00-0800 to the date string. 
+        // It might be more robust for you to parse the date yourself 
+        // and construct your Date instance with numeric year, month, and date parameters."
     };
 
     const handleStatusChange = e => {
@@ -97,21 +103,16 @@ function Form(props) {
 
     const handleSubmit = e => {
         e.preventDefault();
-        bugs.edit(bug.id, { // temp code
+        let editedBug = { // temp code: find solution where 'setBug' data reflects src (bugsList)
             id: bug.id, 
             name: name !== "" ? name : bug.name, 
-            dueDate: dueDate !== "" ? new Date(dueDate) : bug.dueDate, 
+            dueDate: dueDate !== "" ? dueDate : bug.dueDate, 
             description: description !== "" ? description : bug.description, 
             status: status !== 0 ? status : bug.status 
-        });
+        };
+        bugs.edit(bug.id, editedBug);
         setBugsList(bugs.getBugs());
-        setBug({ // temp code: find solution where data reflects src (bugsList)
-            id: bug.id, 
-            name: name !== "" ? name : bug.name, 
-            dueDate: dueDate !== "" ? new Date(dueDate) : bug.dueDate, 
-            description: description !== "" ? description : bug.description, 
-            status: status !== 0 ? status : bug.status 
-        });
+        setBug(editedBug);
         setName("");
         setDueDate("");
         setDescription("");
