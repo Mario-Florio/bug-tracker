@@ -5,21 +5,8 @@ import uniqid from 'uniqid';
 function BugsList(props) {
 
     const [formIsActive, setFormIsActive] = useState(false);
-    const [name, setName] = useState("");
 
     const { bugs, bugsList, setBugsList, setBug } = props;
-
-    const handleChange = e => {
-        setName(e.target.value);
-    };
-
-    const handleSubmit = e => {
-        e.preventDefault();
-        bugs.add({ id: uniqid(), name: name, description: "Lorem Ipsum.", dueDate: new Date(), status: 1, priority: 1 });
-        setBugsList(bugs.getBugs());
-        setName("");
-        setFormIsActive(false);
-    }
 
     return(
         <div className="bugsList">
@@ -28,7 +15,7 @@ function BugsList(props) {
                     <tr className="bugsList__tableRow">
                         <th>Name</th>
                         <th>Due Date</th>
-                        <th style={{width: "97px"}}>Status</th>
+                        <th style={{textAlign: "right", width: "97px"}}>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,10 +24,7 @@ function BugsList(props) {
             </table>
             {formIsActive ?
                 <>
-                    <form>
-                        <input type="text" onChange={handleChange} placeholder="Name"/>
-                        <button onClick={handleSubmit}>Submit</button>
-                    </form>
+                    <Form bugs={bugs} setBugsList={setBugsList} setFormIsActive={setFormIsActive}/>
                     <button onClick={() => setFormIsActive(false)}>Cancel</button>
                 </>
             :
@@ -53,28 +37,28 @@ function BugsList(props) {
 
 export default BugsList;
 
+function convertStatus(status) {
+    let statusStr
+    switch(status) {
+        case 1:
+            statusStr = "Not Started"
+            break;
+        case 2:
+            statusStr = "In Progress"
+            break;
+        case 3:
+            statusStr = "Resolved"
+            break;
+        default:
+            statusStr = null
+            break;
+    }
+    return statusStr;
+}
+
 function BugTicket(props) {
 
     const { bug, setBug, bugsList } = props;
-
-    function convertStatus(status) {
-        let statusStr
-        switch(status) {
-            case 1:
-                statusStr = "Not Started"
-                break;
-            case 2:
-                statusStr = "In Progress"
-                break;
-            case 3:
-                statusStr = "Resolved"
-                break;
-            default:
-                statusStr = null
-                break;
-        }
-        return statusStr;
-    }
 
     return(
         <tr onClick={() => setBug(bugsList[bugsList.indexOf(bug)])} className="bugsList__tableDataRow">
@@ -87,4 +71,81 @@ function BugTicket(props) {
             </td>
         </tr>
     );
+}
+
+function Form(props) {
+
+    const [name, setName] = useState("");
+    const [dueDate, setDueDate] = useState("");
+    const [description, setDescription] = useState("");
+    const [status, setStatus] = useState(0);
+
+    const { bugs, setBug, setBugsList, setFormIsActive } = props;
+
+    const handleCancel = e => {
+        e.preventDefault();
+        setFormIsActive(false);
+    };
+
+    const handleNameChange = e => {
+        setName(e.target.value);
+    };
+
+    const handleDescriptionChange = e => {
+        setDescription(e.target.value);
+    };
+
+    const handleDueDateChange = e => {
+        setDueDate(e.target.value);
+    };
+
+    const handleStatusChange = e => {
+        setStatus(Number(e.target.value));
+    };
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        let bugId = uniqid();
+        bugs.add({ 
+            id: bugId, 
+            name: name, 
+            dueDate: new Date(dueDate), 
+            description: description, 
+            status: status 
+        });
+        setBugsList(bugs.getBugs());
+        setName("");
+        setDueDate("");
+        setDescription("");
+        setStatus(0);
+        setFormIsActive(false);
+    };
+
+    return(
+        <form style={{display: "flex", flexDirection: "column", alignItems: "start", color: "rgb(182, 182, 182)"}}>
+            <label>Name</label>
+            <input type="text" onChange={handleNameChange} placeholder={"Name"}/>
+            <label>Due Date</label>
+            <input type="date" onChange={handleDueDateChange}/>
+            <label>Description</label>
+            <textarea onChange={handleDescriptionChange}/>
+            <label>Status:</label>
+            <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
+                <label>Not Started</label>
+                <input type="radio" name="status" value={1} onChange={handleStatusChange}/>
+            </div>
+            <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
+                <label>In Progress</label>
+                <input type="radio" name="status" value={2} onChange={handleStatusChange}/>
+            </div>
+            <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
+                <label>Resolved</label>
+                <input type="radio" name="status" value={3} onChange={handleStatusChange}/>
+            </div>
+            <div>
+                <button onClick={handleSubmit}>Confirm</button>
+                <button onClick={handleCancel}>Cancel</button>
+            </div>
+        </form>
+    )
 }
