@@ -1,10 +1,8 @@
 import uniqid from 'uniqid';
 
-let bugsList = [
-    { id: uniqid(), name: "Bug 1", description: "Lorem Ipsum.", dueDate: new Date(), status: 1, priority: 1 },
-    { id: uniqid(), name: "Bug 2", description: "Lorem Ipsum.", dueDate: new Date(), status: 2, priority: 2 },
-    { id: uniqid(), name: "Bug 3", description: "Lorem Ipsum.", dueDate: new Date(), status: 3, priority: 3 }
-];
+let storedBugs = JSON.parse(localStorage.getItem('BUGS'));
+
+let bugsList = storedBugs || [];
 
 function getBugs() {
     return [...bugsList];
@@ -12,19 +10,17 @@ function getBugs() {
 
 function add(bug) {
     bugsList.push(bug);
+    localStorage.setItem('BUGS', JSON.stringify(bugsList))
 };
 
 function edit(id, change) {
-    return bugsList = bugsList.map(bug => {
-        if (bug.id === id) {
-            return change;
-        } else return bug;
-    });
+    bugsList = bugsList.map(bug => bug.id === id ? change : bug);
+    localStorage.setItem('BUGS', JSON.stringify(bugsList));
 };
 
 function remove(id) {
-    return bugsList = bugsList.filter(bug =>
-        bug.id !== id);
+    bugsList = bugsList.filter(bug => bug.id !== id);
+    localStorage.setItem('BUGS', JSON.stringify(bugsList));
 };
 
 const bugs = {
