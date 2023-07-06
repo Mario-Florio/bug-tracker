@@ -36,25 +36,31 @@ table {
 
 .bugsList__notStarted {
     font-size: .9rem;
+    text-align: center;
     color: white;
     background-color: rgb(212, 90, 51);
     padding: 2px 10px;
+    width: 97px;
     border-radius: 15px;
 }
 
 .bugsList__inProgress {
     font-size: .9rem;
+    text-align: center;
     color: white;
     background-color: rgb(62, 212, 51);
     padding: 2px 10px;
+    width: 97px;
     border-radius: 15px;
 }
 
 .bugsList__resolved {
     font-size: .9rem;
+    text-align: center;
     color: white;
     background-color: rgb(148, 148, 148);
     padding: 2px 10px;
+    width: 97px;
     border-radius: 15px;
 }
 
