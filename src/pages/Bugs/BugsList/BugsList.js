@@ -80,7 +80,7 @@ function Form(props) {
     const [description, setDescription] = useState("");
     const [status, setStatus] = useState(0);
 
-    const { bugs, setBug, setBugsList, setFormIsActive } = props;
+    const { bugs, setBugsList, setFormIsActive } = props;
 
     const handleCancel = e => {
         e.preventDefault();
@@ -105,9 +105,8 @@ function Form(props) {
 
     const handleSubmit = e => {
         e.preventDefault();
-        let bugId = uniqid();
         bugs.add({ 
-            id: bugId, 
+            id: uniqid(), 
             name: name, 
             dueDate: new Date(dueDate), 
             description: description, 
