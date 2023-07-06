@@ -143,11 +143,11 @@ function Form(props) {
     return(
         <form style={{display: "flex", flexDirection: "column", alignItems: "start"}}>
             <label>Name</label>
-            <input type="text" onChange={handleNameChange} placeholder={bug.name}/>
+            <input type="text" onChange={handleNameChange} maxLength={25} placeholder={bug.name}/>
             <label>Due Date</label>
             <input type="date" onChange={handleDueDateChange}/>
             <label>Description</label>
-            <textarea onChange={handleDescriptionChange}/>
+            <textarea onChange={handleDescriptionChange} placeholder={bug.description}/>
             <label>Status:</label>
             <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
                 <label>Not Started</label>

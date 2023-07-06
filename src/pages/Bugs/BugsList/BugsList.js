@@ -23,10 +23,7 @@ function BugsList(props) {
                 </tbody>
             </table>
             {formIsActive ?
-                <>
-                    <Form bugs={bugs} setBugsList={setBugsList} setFormIsActive={setFormIsActive}/>
-                    <button onClick={() => setFormIsActive(false)}>Cancel</button>
-                </>
+                <Form bugs={bugs} setBugsList={setBugsList} setFormIsActive={setFormIsActive}/>
             :
                 <button onClick={() => setFormIsActive(true)}>
                     Add Bug
@@ -128,11 +125,11 @@ function Form(props) {
     return(
         <form style={{display: "flex", flexDirection: "column", alignItems: "start", color: "rgb(182, 182, 182)"}}>
             <label>Name</label>
-            <input type="text" onChange={handleNameChange} placeholder={"Name"}/>
+            <input type="text" onChange={handleNameChange} maxLength={25} placeholder={"Name"}/>
             <label>Due Date</label>
             <input type="date" onChange={handleDueDateChange}/>
             <label>Description</label>
-            <textarea onChange={handleDescriptionChange}/>
+            <textarea onChange={handleDescriptionChange} placeholder='Description'/>
             <label>Status:</label>
             <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
                 <label>Not Started</label>
