@@ -15,7 +15,7 @@ function BugsList(props) {
 
     const handleSubmit = e => {
         e.preventDefault();
-        bugs.add({ id: uniqid(), name: name });
+        bugs.add({ id: uniqid(), name: name, description: "Lorem Ipsum.", dueDate: new Date(), status: 1, priority: 1 });
         setBugsList(bugs.getBugs());
         setName("");
         setFormIsActive(false);
