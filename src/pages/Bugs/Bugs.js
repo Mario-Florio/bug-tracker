@@ -12,7 +12,7 @@ function Bugs() {
     return(
         <div>
             <h2 className="page__header">Bugs</h2>
-            <BugInfo bugs={bugs} bug={bug} setBug={setBug} bugsList={bugsList} setBugsList={setBugsList}/>
+            <BugInfo bugs={bugs} bug={bug} setBug={setBug} setBugsList={setBugsList}/>
             <BugsList bugs={bugs} bugsList={bugsList} setBugsList={setBugsList} setBug={setBug}/>
         </div>
     );
