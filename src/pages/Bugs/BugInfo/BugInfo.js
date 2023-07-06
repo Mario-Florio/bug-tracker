@@ -15,9 +15,9 @@ function BugInfo(props) {
     return(
         <div className="bugInfo">
             {bug === undefined ?
-                    <>
-                        <h3>Select Bug</h3>
-                    </> 
+                <>
+                    <h3>Select Bug</h3>
+                </> 
                 :
                 <>
                     {editable ? 
