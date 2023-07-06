@@ -63,7 +63,7 @@ function BugTicket(props) {
     return(
         <tr onClick={() => setBug(bugsList[bugsList.indexOf(bug)])} className="bugsList__tableDataRow">
             <td>{bug.name}</td>
-            <td>{bug.dueDate.toLocaleDateString()}</td>
+            <td>{new Date(bug.dueDate).toLocaleDateString()}</td>
             <td 
                 className={bug.status === 1 ? "bugsList__notStarted" : bug.status === 2 ? "bugsList__inProgress" : "bugsList__resolved"}
             >
@@ -108,7 +108,7 @@ function Form(props) {
     };
 
     const handleStatusChange = e => {
-        setStatus(new Date(e.target.value));
+        setStatus(Number(e.target.value));
     };
 
     const handleSubmit = e => {

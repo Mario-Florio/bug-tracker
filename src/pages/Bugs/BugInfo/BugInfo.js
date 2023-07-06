@@ -75,7 +75,7 @@ function Display(props) {
                     {convertStatus(bug.status)}
                 </p>
             </div>
-            <p>{bug.dueDate.toLocaleDateString()}</p>
+            <p>{new Date(bug.dueDate).toLocaleDateString()}</p>
             <p>{bug.description}</p>
             <button onClick={() => setEditable(true)}>Edit</button>
         </>
