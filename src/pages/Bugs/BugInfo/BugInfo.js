@@ -14,31 +14,19 @@ function BugInfo(props) {
 
     return(
         <div className="bugInfo">
-            {editable ? 
-                <>
-                    <Form bugs={bugs} bug={bug} setBug={setBug} setBugsList={setBugsList} setEditable={setEditable}/>
-                    <button onClick={handleDeletion}>Delete</button>
-                </>
-            :
-                bug === undefined ?
+            {bug === undefined ?
                     <>
                         <h3>Select Bug</h3>
                     </> 
                 :
-                    <>
-                        <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-                            <h3>{bug.name}</h3>
-                            <p 
-                                className={bug.status === 1 ? "bugsList__notStarted" : bug.status === 2 ? "bugsList__inProgress" : "bugsList__resolved"}
-                            >
-                                {convertStatus(bug.status)}
-                            </p>
-                        </div>
-                        <p>{bug.dueDate.toLocaleDateString()}</p>
-                        <p>{bug.description}</p>
-                        <button onClick={() => setEditable(true)}>Edit</button>
-                        <button onClick={handleDeletion}>Delete</button>
-                    </>
+                <>
+                    {editable ? 
+                        <Form bugs={bugs} bug={bug} setBug={setBug} setBugsList={setBugsList} setEditable={setEditable}/>
+                    :
+                        <Display bug={bug} setEditable={setEditable}/>    
+                    }
+                    <button onClick={handleDeletion}>Delete</button>
+                </>
             }
         </div>
     );
@@ -63,6 +51,27 @@ function convertStatus(status) {
             break;
     }
     return statusStr;
+}
+
+function Display(props) {
+
+    const { bug, setEditable } = props;
+
+    return(
+        <>
+            <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                <h3>{bug.name}</h3>
+                <p 
+                    className={bug.status === 1 ? "bugsList__notStarted" : bug.status === 2 ? "bugsList__inProgress" : "bugsList__resolved"}
+                >
+                    {convertStatus(bug.status)}
+                </p>
+            </div>
+            <p>{bug.dueDate.toLocaleDateString()}</p>
+            <p>{bug.description}</p>
+            <button onClick={() => setEditable(true)}>Edit</button>
+        </>
+    );
 }
 
 function Form(props) {
