@@ -76,7 +76,7 @@ function Display(props) {
                 </p>
             </div>
             <p>{new Date(bug.dueDate).toLocaleDateString()}</p>
-            <p>{bug.description}</p>
+            <p style={{whiteSpace: "pre-wrap"}}>{bug.description}</p>
             <button onClick={() => setEditable(true)}>Edit</button>
         </>
     );

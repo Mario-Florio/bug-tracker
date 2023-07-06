@@ -13,7 +13,7 @@ function BugsList(props) {
             <table className="bugsList__table">
                 <thead>
                     <tr className="bugsList__tableRow">
-                        <th>Name</th>
+                        <th style={{textAlign: "left", width: "146px"}}>Name</th>
                         <th>Due Date</th>
                         <th style={{textAlign: "right", width: "97px"}}>Status</th>
                     </tr>
@@ -59,7 +59,7 @@ function BugTicket(props) {
 
     return(
         <tr onClick={() => setBug(bugsList[bugsList.indexOf(bug)])} className="bugsList__tableDataRow">
-            <td>{bug.name}</td>
+            <td style={{textAlign: "left", width: "146px"}}>{bug.name}</td>
             <td>{new Date(bug.dueDate).toLocaleDateString()}</td>
             <td 
                 className={bug.status === 1 ? "bugsList__notStarted" : bug.status === 2 ? "bugsList__inProgress" : "bugsList__resolved"}
