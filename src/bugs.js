@@ -1,9 +1,9 @@
 import uniqid from 'uniqid';
 
 let bugsList = [
-    { id: uniqid(), title: "Bug 1" },
-    { id: uniqid(), title: "Bug 2" },
-    { id: uniqid(), title: "Bug 3" }
+    { id: uniqid(), name: "Bug 1", description: "Lorem Ipsum.", dueDate: new Date(), status: 1, priority: 1 },
+    { id: uniqid(), name: "Bug 2", description: "Lorem Ipsum.", dueDate: new Date(), status: 2, priority: 2 },
+    { id: uniqid(), name: "Bug 3", description: "Lorem Ipsum.", dueDate: new Date(), status: 3, priority: 3 }
 ];
 
 function getBugs() {
