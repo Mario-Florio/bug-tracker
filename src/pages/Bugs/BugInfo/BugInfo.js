@@ -1,15 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./BugInfo.css";
 
 function BugInfo(props) {
 
-    const { bugs, bug, setBug, setBugsList } = props;
+    const { bugs, bug, setBug, bugsList, setBugsList } = props;
     const [editable, setEditable] = useState(false);
+    const [index, setIndex] = useState(bugsList.indexOf(bug));
+
+    useEffect(() => {
+        setBug(bugsList[index]);
+    }, [bugsList]);
+
+    useEffect(() => {
+        setIndex(bugsList.indexOf(bug));
+    }, [bug])
 
     const handleDeletion = () => {
         bugs.delete(bug.id);
         setBugsList(bugs.getBugs());
-        setBug(bugs.getBugs()[0]);
     };
 
     return(
@@ -21,7 +29,7 @@ function BugInfo(props) {
                 :
                 <>
                     {editable ? 
-                        <Form bugs={bugs} bug={bug} setBug={setBug} setBugsList={setBugsList} setEditable={setEditable}/>
+                        <Form bugs={bugs} bug={bug} setBugsList={setBugsList} setEditable={setEditable}/>
                     :
                         <Display bug={bug} setEditable={setEditable}/>    
                     }
@@ -81,7 +89,15 @@ function Form(props) {
     const [description, setDescription] = useState("");
     const [status, setStatus] = useState(0);
 
-    const { bugs, bug, setBug, setBugsList, setEditable } = props;
+    const { bugs, bug, setBugsList, setEditable } = props;
+
+    function resetForm() {
+        setName("");
+        setDueDate("");
+        setDescription("");
+        setStatus(0);
+        setEditable(false);
+    };
 
     const handleCancel = e => {
         e.preventDefault();
@@ -112,7 +128,7 @@ function Form(props) {
 
     const handleSubmit = e => {
         e.preventDefault();
-        let editedBug = { // temp code: find solution where 'setBug' data reflects src (bugsList)
+        let editedBug = {
             id: bug.id, 
             name: name !== "" ? name : bug.name, 
             dueDate: dueDate !== "" ? dueDate : bug.dueDate, 
@@ -121,12 +137,7 @@ function Form(props) {
         };
         bugs.edit(bug.id, editedBug);
         setBugsList(bugs.getBugs());
-        setBug(editedBug);
-        setName("");
-        setDueDate("");
-        setDescription("");
-        setStatus(0);
-        setEditable(false);
+        resetForm();
     };
 
     return(

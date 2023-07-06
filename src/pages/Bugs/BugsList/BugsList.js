@@ -82,6 +82,14 @@ function Form(props) {
 
     const { bugs, setBugsList, setFormIsActive } = props;
 
+    function resetForm() {
+        setName("");
+        setDueDate(new Date());
+        setDescription("");
+        setStatus(1);
+        setFormIsActive(false);
+    };
+
     const handleCancel = e => {
         e.preventDefault();
         setFormIsActive(false);
@@ -114,11 +122,7 @@ function Form(props) {
         };
         bugs.add(newBug);
         setBugsList(bugs.getBugs());
-        setName("");
-        setDueDate(new Date());
-        setDescription("");
-        setStatus(1);
-        setFormIsActive(false);
+        resetForm();
     };
 
     return(
