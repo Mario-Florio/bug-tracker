@@ -1,5 +1,3 @@
-import uniqid from 'uniqid';
-
 let storedBugs = JSON.parse(localStorage.getItem('BUGS'));
 
 let bugsList = storedBugs || [];
