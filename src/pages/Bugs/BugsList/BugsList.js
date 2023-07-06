@@ -28,7 +28,7 @@ function BugsList(props) {
                     <tr className="bugsList__tableRow">
                         <th>Name</th>
                         <th>Due Date</th>
-                        <th>Status</th>
+                        <th style={{width: "97px"}}>Status</th>
                     </tr>
                 </thead>
                 <tbody>
