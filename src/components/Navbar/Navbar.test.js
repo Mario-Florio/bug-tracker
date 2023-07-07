@@ -4,24 +4,24 @@ import userEvent from '@testing-library/user-event';
 import App from '../../App';
 
 describe('Navbar component', () => {
-    it('Logo Link Renders Dashboard', async () => {    
+    it('Logo Link Renders Dashboard', () => {    
         render(<App/>);
 
         const logoLink = screen.getByRole("link", { name: "Bug Tracker" });
         const bugsLink = screen.getByTestId("navbar__bugsLink");
     
-        await userEvent.click(bugsLink);
-        await userEvent.click(logoLink);
+        userEvent.click(bugsLink);
+        userEvent.click(logoLink);
     
         expect(screen.getByRole("heading").textContent).toMatch(/Dashboard/i);
     });
-    it('Dashboard Link Renders Dashboard', async () => {
+    it('Dashboard Link Renders Dashboard', () => {
         render(<App/>);
         const dashboardLink = screen.getByTestId("navbar__dashboardLink");
         const bugsLink = screen.getByTestId("navbar__bugsLink");
     
-        await userEvent.click(bugsLink);
-        await userEvent.click(dashboardLink);
+        userEvent.click(bugsLink);
+        userEvent.click(dashboardLink);
     
         expect(screen.getByRole("heading").textContent).toMatch(/Dashboard/i);
     });
