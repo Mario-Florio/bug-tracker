@@ -10,31 +10,31 @@ function ResizableGrid(props) {
     const { bugsLength } = props;
 
     const layout1 = [
-        { i: "a", x: 0, y: 0, w: 10, h: 15, static: false },
+        { i: "a", x: 0, y: 0, w: 10, h: 15 },
         { i: "b", x: 10, y: 0, w: 10, h: 15 },
         { i: "c", x: 0, y: 10, w: 10, h: 15 }
     ]
 
     const layout2 = [
-        { i: "a", x: 0, y: 0, w: 15, h: 15, static: false },
+        { i: "a", x: 0, y: 0, w: 15, h: 15 },
         { i: "b", x: 15, y: 0, w: 15, h: 15 },
         { i: "c", x: 0, y: 15, w: 15, h: 15 }
     ]
 
     const layout3 = [
-        { i: "a", x: 0, y: 0, w: 20, h: 15, static: false },
+        { i: "a", x: 0, y: 0, w: 20, h: 15 },
         { i: "b", x: 20, y: 0, w: 20, h: 15 },
         { i: "c", x: 40, y: 0, w: 20, h: 15 }
     ]
 
     const layout4 = [
-        { i: "a", x: 0, y: 0, w: 33, h: 15, static: false },
+        { i: "a", x: 0, y: 0, w: 33, h: 15 },
         { i: "b", x: 33, y: 0, w: 33, h: 15 },
         { i: "c", x: 66, y: 0, w: 33, h: 15 }
     ]
 
     const layout5 = [
-        { i: "a", x: 0, y: 0, w: 40, h: 15, static: false },
+        { i: "a", x: 0, y: 0, w: 40, h: 15 },
         { i: "b", x: 40, y: 0, w: 40, h: 15 },
         { i: "c", x: 80, y: 0, w: 40, h: 15 }
     ]
