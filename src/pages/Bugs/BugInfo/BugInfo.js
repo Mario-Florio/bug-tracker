@@ -13,7 +13,7 @@ function BugInfo(props) {
 
     useEffect(() => {
         setIndex(bugsList.indexOf(bug));
-    }, [bug])
+    }, [bug]);
 
     const handleDeletion = () => {
         bugs.delete(bug.id);
