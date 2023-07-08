@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import "./BugInfo.css";
 
 function BugInfo(props) {
@@ -29,7 +30,7 @@ function BugInfo(props) {
                 :
                 <>
                     {editable ? 
-                        <Form bugs={bugs} bug={bug} setBugsList={setBugsList} setEditable={setEditable}/>
+                        <ReactHookForm bugs={bugs} bug={bug} setBugsList={setBugsList} setEditable={setEditable}/>
                     :
                         <Display bug={bug} setEditable={setEditable}/>    
                     }
@@ -82,89 +83,110 @@ function Display(props) {
     );
 }
 
-function Form(props) {
-
-    const [name, setName] = useState("");
-    const [dueDate, setDueDate] = useState("");
-    const [description, setDescription] = useState("");
-    const [status, setStatus] = useState(0);
+function ReactHookForm(props) {
 
     const { bugs, bug, setBugsList, setEditable } = props;
 
-    function resetForm() {
-        setName("");
-        setDueDate("");
-        setDescription("");
-        setStatus(0);
-        setEditable(false);
-    };
+    const { 
+        register, 
+        handleSubmit, 
+        formState: { errors } 
+    } = useForm({
+        defaultValues: {
+            name: bug.name,
+            dueDate: new Date(bug.dueDate).toISOString().split('T')[0],
+            description: bug.description,
+            status: bug.status,
+        }
+    });
 
     const handleCancel = e => {
         e.preventDefault();
         setEditable(false);
     };
 
-    const handleNameChange = e => {
-        setName(e.target.value);
-    };
-
-    const handleDescriptionChange = e => {
-        setDescription(e.target.value);
-    };
-
-    const handleDueDateChange = e => {
-        setDueDate(new Date(e.target.value));
-        // Date currently refers to day before:
-
-        // "You can force the time zone to be interpreted by 
-        // tacking on T00:00-0800 to the date string. 
-        // It might be more robust for you to parse the date yourself 
-        // and construct your Date instance with numeric year, month, and date parameters."
-    };
-
-    const handleStatusChange = e => {
-        setStatus(Number(e.target.value));
-    };
-
-    const handleSubmit = e => {
+    const submit = (data, e) => {
         e.preventDefault();
-        let editedBug = {
-            id: bug.id, 
-            name: name !== "" ? name : bug.name, 
-            dueDate: dueDate !== "" ? dueDate : bug.dueDate, 
-            description: description !== "" ? description : bug.description, 
-            status: status !== 0 ? status : bug.status 
+        let newBug = {
+            id: bug.id,
+            name: data.name,
+            dueDate: new Date(data.dueDate).toISOString().split('T')[0],
+            description: data.description,
+            status: Number(data.status)
         };
-        bugs.edit(bug.id, editedBug);
+        // console.log(newBug);
+        bugs.edit(bug.id, newBug);
         setBugsList(bugs.getBugs());
-        resetForm();
-    };
+        setEditable(false);
+    }
 
     return(
-        <form style={{display: "flex", flexDirection: "column", alignItems: "start"}}>
+        <form 
+            style={{
+                display: "flex", 
+                flexDirection: "column", 
+                alignItems: "start", 
+                color: "rgb(182, 182, 182)", 
+                margin: "1em 0 1em"
+            }}
+            onSubmit={handleSubmit((data, e) => submit(data, e))}>
             <label>Name</label>
-            <input type="text" onChange={handleNameChange} maxLength={20} placeholder={bug.name}/>
+            <input 
+                className={errors.name ? "bugsList__input--invalid" : null}
+                {...register("name", 
+                    { 
+                        required: "This is required.", 
+                        maxLength: { value: 20, message: "Max length is 20." } 
+                    }
+                )} 
+                placeholder='Name'
+            />
+            {errors.name ? <p className="bugsList__errorMsg">{errors.name.message}</p> : null}
             <label>Due Date</label>
-            <input type="date" onChange={handleDueDateChange}/>
+            <input
+                type='date'
+                {...register("dueDate")} 
+            />
             <label>Description</label>
-            <textarea onChange={handleDescriptionChange} placeholder={bug.description}/>
-            <label>Status:</label>
+            <textarea
+                className={errors.description ? "bugsList__input--invalid" : null}
+                {...register("description", 
+                    { 
+                        required: "This is required.", 
+                    }
+                )} 
+                placeholder='Description'
+            />
+            {errors.description ? <p className="bugsList__errorMsg">{errors.description.message}</p> : null}
+            <label>Status</label>
             <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
                 <label>Not Started</label>
-                <input type="radio" name="status" value={1} onChange={handleStatusChange}/>
+                <input
+                    type="radio"
+                    value={1}
+                    {...register("status")}
+                />
             </div>
             <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
                 <label>In Progress</label>
-                <input type="radio" name="status" value={2} onChange={handleStatusChange}/>
+                <input
+                    type="radio"
+                    value={2}
+                    {...register("status")}
+                />
             </div>
             <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
                 <label>Resolved</label>
-                <input type="radio" name="status" value={3} onChange={handleStatusChange}/>
+                <input
+                    type="radio"
+                    value={3}
+                    {...register("status")}
+                />
             </div>
-            <div>
-                <button onClick={handleSubmit}>Confirm</button>
+            <div style={{margin: "1em 0"}}>
+                <button>Submit</button>
                 <button onClick={handleCancel}>Cancel</button>
             </div>
         </form>
-    )
+    );
 }
