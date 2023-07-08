@@ -25,7 +25,7 @@ function BugsList(props) {
             {formIsActive ?
                 <Form bugs={bugs} setBugsList={setBugsList} setFormIsActive={setFormIsActive}/>
             :
-                <button onClick={() => setFormIsActive(true)}>
+                <button style={{margin: "1em 0"}} onClick={() => setFormIsActive(true)}>
                     Add Bug
                 </button>}
         </div>
@@ -123,7 +123,7 @@ function Form(props) {
     };
 
     return(
-        <form style={{display: "flex", flexDirection: "column", alignItems: "start", color: "rgb(182, 182, 182)"}}>
+        <form style={{display: "flex", flexDirection: "column", alignItems: "start", color: "rgb(182, 182, 182)", margin: "1em 0 1em"}}>
             <label>Name</label>
             <input type="text" onChange={handleNameChange} maxLength={25} placeholder={"Name"}/>
             <label>Due Date</label>
