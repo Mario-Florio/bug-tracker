@@ -71,7 +71,7 @@ function Display(props) {
             <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                 <h3>{bug.name}</h3>
                 <p 
-                    className={bug.status === 1 ? "bugsList__notStarted" : bug.status === 2 ? "bugsList__inProgress" : "bugsList__resolved"}
+                    className={bug.status === 1 ? "bugs__notStarted" : bug.status === 2 ? "bugs__inProgress" : "bugs__resolved"}
                 >
                     {convertStatus(bug.status)}
                 </p>
@@ -114,7 +114,6 @@ function ReactHookForm(props) {
             description: data.description,
             status: Number(data.status)
         };
-        // console.log(newBug);
         bugs.edit(bug.id, newBug);
         setBugsList(bugs.getBugs());
         setEditable(false);
@@ -132,7 +131,7 @@ function ReactHookForm(props) {
             onSubmit={handleSubmit((data, e) => submit(data, e))}>
             <label>Name</label>
             <input 
-                className={errors.name ? "bugsList__input--invalid" : null}
+                className={errors.name ? "bugs__input--invalid" : null}
                 {...register("name", 
                     { 
                         required: "This is required.", 
@@ -141,7 +140,7 @@ function ReactHookForm(props) {
                 )} 
                 placeholder='Name'
             />
-            {errors.name ? <p className="bugsList__errorMsg">{errors.name.message}</p> : null}
+            {errors.name ? <p className="bugs__errorMsg">{errors.name.message}</p> : null}
             <label>Due Date</label>
             <input
                 type='date'
@@ -149,7 +148,7 @@ function ReactHookForm(props) {
             />
             <label>Description</label>
             <textarea
-                className={errors.description ? "bugsList__input--invalid" : null}
+                className={errors.description ? "bugs__input--invalid" : null}
                 {...register("description", 
                     { 
                         required: "This is required.", 
@@ -157,7 +156,7 @@ function ReactHookForm(props) {
                 )} 
                 placeholder='Description'
             />
-            {errors.description ? <p className="bugsList__errorMsg">{errors.description.message}</p> : null}
+            {errors.description ? <p className="bugs__errorMsg">{errors.description.message}</p> : null}
             <label>Status</label>
             <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
                 <label>Not Started</label>

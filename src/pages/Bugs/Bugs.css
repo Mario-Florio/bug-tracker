@@ -1,1 +1,44 @@
 
+.bugs__notStarted {
+    font-size: .9rem;
+    text-align: center;
+    color: white;
+    background-color: rgb(212, 90, 51);
+    padding: 2px 10px;
+    width: 97px;
+    border-radius: 15px;
+}
+
+.bugs__inProgress {
+    font-size: .9rem;
+    text-align: center;
+    color: white;
+    background-color: rgb(62, 212, 51);
+    padding: 2px 10px;
+    width: 97px;
+    border-radius: 15px;
+}
+
+.bugs__resolved {
+    font-size: .9rem;
+    text-align: center;
+    color: white;
+    background-color: rgb(148, 148, 148);
+    padding: 2px 10px;
+    width: 97px;
+    border-radius: 15px;
+}
+
+/* Forms */
+
+.bugs__input--invalid {
+    background-color: pink;
+    border: solid 0;
+    border-radius: 2px;
+}
+
+.bugs__errorMsg {
+    font-size: .8rem;
+    color: red;
+    margin: 0;
+}
