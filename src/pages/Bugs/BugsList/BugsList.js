@@ -1,5 +1,6 @@
 import './BugsList.css';
 import { useState } from 'react';
+import { useForm } from "react-hook-form";
 import uniqid from 'uniqid';
 
 function BugsList(props) {
@@ -23,7 +24,7 @@ function BugsList(props) {
                 </tbody>
             </table>
             {formIsActive ?
-                <Form bugs={bugs} setBugsList={setBugsList} setFormIsActive={setFormIsActive}/>
+                <ReactHookForm bugs={bugs} setBugsList={setBugsList} setFormIsActive={setFormIsActive}/>
             :
                 <button style={{margin: "1em 0"}} onClick={() => setFormIsActive(true)}>
                     Add Bug
@@ -70,83 +71,109 @@ function BugTicket(props) {
     );
 }
 
-function Form(props) {
+function ReactHookForm(props) {
 
-    const [name, setName] = useState("");
-    const [dueDate, setDueDate] = useState(new Date());
-    const [description, setDescription] = useState("");
-    const [status, setStatus] = useState(1);
+    const { 
+        register, 
+        handleSubmit, 
+        formState: { errors } 
+    } = useForm({
+        defaultValues: {
+            name: "",
+            dueDate: new Date().toISOString().split('T')[0],
+            description: "",
+            status: 1,
+        }
+    });
 
-    const { bugs, setBugsList, setFormIsActive } = props;
-
-    function resetForm() {
-        setName("");
-        setDueDate(new Date());
-        setDescription("");
-        setStatus(1);
-        setFormIsActive(false);
-    };
+    const { setFormIsActive, bugs, setBugsList } = props;
 
     const handleCancel = e => {
         e.preventDefault();
         setFormIsActive(false);
     };
 
-    const handleNameChange = e => {
-        setName(e.target.value);
-    };
-
-    const handleDescriptionChange = e => {
-        setDescription(e.target.value);
-    };
-
-    const handleDueDateChange = e => {
-        setDueDate(e.target.value);
-    };
-
-    const handleStatusChange = e => {
-        setStatus(Number(e.target.value));
-    };
-
-    const handleSubmit = e => {
+    const submit = (data, e) => {
         e.preventDefault();
-        let newBug = { 
-            id: uniqid(), 
-            name: name, 
-            dueDate: dueDate, 
-            description: description, 
-            status: status 
+        let newBug = {
+            id: uniqid(),
+            name: data.name,
+            dueDate: new Date(data.dueDate).toISOString().split('T')[0],
+            description: data.description,
+            status: Number(data.status)
         };
         bugs.add(newBug);
         setBugsList(bugs.getBugs());
-        resetForm();
-    };
+        setFormIsActive(false);
+    }
 
     return(
-        <form style={{display: "flex", flexDirection: "column", alignItems: "start", color: "rgb(182, 182, 182)", margin: "1em 0 1em"}}>
+        <form 
+            style={{
+                display: "flex", 
+                flexDirection: "column", 
+                alignItems: "start", 
+                color: "rgb(182, 182, 182)", 
+                margin: "1em 0 1em"
+            }}
+            onSubmit={handleSubmit((data, e) => submit(data, e))}>
             <label>Name</label>
-            <input type="text" onChange={handleNameChange} maxLength={25} placeholder={"Name"}/>
+            <input 
+                className={errors.name ? "bugsList__input--invalid" : null}
+                {...register("name", 
+                    { 
+                        required: "This is required.", 
+                        maxLength: { value: 20, message: "Max length is 20." } 
+                    }
+                )} 
+                placeholder='Name'
+            />
+            {errors.name ? <p className="bugsList__errorMsg">{errors.name.message}</p> : null}
             <label>Due Date</label>
-            <input type="date" onChange={handleDueDateChange}/>
+            <input
+                type='date'
+                {...register("dueDate")} 
+            />
             <label>Description</label>
-            <textarea onChange={handleDescriptionChange} placeholder='Description'/>
-            <label>Status:</label>
+            <textarea
+                className={errors.description ? "bugsList__input--invalid" : null}
+                {...register("description", 
+                    { 
+                        required: "This is required.", 
+                    }
+                )} 
+                placeholder='Description'
+            />
+            {errors.description ? <p className="bugsList__errorMsg">{errors.description.message}</p> : null}
+            <label>Status</label>
             <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
                 <label>Not Started</label>
-                <input type="radio" name="status" value={1} onChange={handleStatusChange}/>
+                <input
+                    type="radio"
+                    value={1}
+                    {...register("status")}
+                />
             </div>
             <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
                 <label>In Progress</label>
-                <input type="radio" name="status" value={2} onChange={handleStatusChange}/>
+                <input
+                    type="radio"
+                    value={2}
+                    {...register("status")}
+                />
             </div>
             <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
                 <label>Resolved</label>
-                <input type="radio" name="status" value={3} onChange={handleStatusChange}/>
+                <input
+                    type="radio"
+                    value={3}
+                    {...register("status")}
+                />
             </div>
-            <div>
-                <button onClick={handleSubmit}>Confirm</button>
+            <div style={{margin: "1em 0"}}>
+                <button>Submit</button>
                 <button onClick={handleCancel}>Cancel</button>
             </div>
         </form>
-    )
+    );
 }

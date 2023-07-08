@@ -64,6 +64,18 @@ table {
     border-radius: 15px;
 }
 
+.bugsList__input--invalid {
+    background-color: pink;
+    border: solid 0;
+    border-radius: 2px;
+}
+
+.bugsList__errorMsg {
+    font-size: .8rem;
+    color: red;
+    margin: 0;
+}
+
 @media all and (max-width: 700px) {
     .bugsList {
         margin: 0 2rem;
