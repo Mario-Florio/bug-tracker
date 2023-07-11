@@ -5,9 +5,9 @@
     font-size: 1.6rem;
     font-weight: 500;
     color: rgb(182, 182, 182);
+    background-color: rgb(19, 19, 19);
     margin: 0 5rem; 
     padding: .83em 0;
-    backdrop-filter: blur(5px);
     transition-duration: .4s;
 }
 
