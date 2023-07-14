@@ -104,10 +104,11 @@ function ReactHookForm(props) {
                 className="bugsList__form"
                 onSubmit={handleSubmit((data, e) => submit(data, e))}
             >
-                <label htmlFor='Name'>Name</label>
+                <label htmlFor='name'>Name</label>
                 <input 
                     type='text'
-                    name='Name'
+                    name='name'
+                    id='name'
                     className={errors.name ? "bugsList__input--invalid" : null}
                     {...register("name", 
                         { 
@@ -118,10 +119,11 @@ function ReactHookForm(props) {
                     placeholder='Name'
                 />
                 {errors.name ? <p className="bugs__errorMsg">{errors.name.message}</p> : null}
-                <label htmlFor='Due Date'>Due Date</label>
+                <label htmlFor='dueDate'>Due Date</label>
                 <input
                     type='date'
-                    name=' Due Date'
+                    name='dueDate'
+                    id='dueDate'
                     className={errors.dueDate ? "bugsList__input--invalid" : null}
                     {...register("dueDate",
                         {
@@ -130,9 +132,10 @@ function ReactHookForm(props) {
                     )} 
                 />
                 {errors.dueDate ? <p className="bugs__errorMsg">{errors.dueDate.message}</p> : null}
-                <label htmlFor='Description'>Description</label>
+                <label htmlFor='description'>Description</label>
                 <textarea
-                    name='Description'
+                    name='description'
+                    id='description'
                     className={errors.description ? "bugsList__input--invalid" : null}
                     {...register("description", 
                         { 
@@ -142,29 +145,33 @@ function ReactHookForm(props) {
                     placeholder='Description'
                 />
                 {errors.description ? <p className="bugs__errorMsg">{errors.description.message}</p> : null}
-                <label>Status:</label>
+                <label htmlFor='status'>Status:</label>
                 <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
-                    <label htmlFor='Not Started'>Not Started</label>
+                    <label htmlFor='notStarted'>Not Started</label>
                     <input
                         type="radio"
-                        name='Not Started'
+                        name='status'
+                        id='notStarted'
                         value={1}
                         {...register("status")}
                     />
                 </div>
                 <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
-                    <label htmlFor='In Progress'>In Progress</label>
+                    <label htmlFor='inProgress'>In Progress</label>
                     <input
                         type="radio"
+                        name='status'
+                        id='inProgress'
                         value={2}
                         {...register("status")}
                     />
                 </div>
                 <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
-                    <label htmlFor='Resolved'>Resolved</label>
+                    <label htmlFor='resolved'>Resolved</label>
                     <input
                         type="radio"
-                        name='Resolved'
+                        name='status'
+                        id='resolved'
                         value={3}
                         {...register("status")}
                     />
