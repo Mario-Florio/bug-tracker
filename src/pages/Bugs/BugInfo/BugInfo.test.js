@@ -2,7 +2,7 @@ import uniqid from "uniqid";
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
-import BugsList from './BugsList';
+import BugInfo from './BugInfo';
 import { act } from "react-dom/test-utils";
 
 class Bugs {
@@ -33,31 +33,31 @@ bugs.add({
     status: 1
 });
 
-describe('BugsList component', () => {
+describe('BugInfo component', () => {
 
-    it('should render bugsList', () => {
+    it('should render bug', () => {  
         let bugsList = bugs.getBugs();
         let bug = bugsList[0];
 
-        function setBugsList() {
-            bugsList = bugs.getBugs();
-        }
+        function setBugsList(newBugsList) {
+            bugsList = newBugsList;
+        };
 
         function setBug(newBug) {
             bug = newBug;
         };
-    
-        render(<BugsList bugs={bugs} bugsList={bugs.getBugs()} setBugsList={setBugsList} setBug={setBug}/>);
-    
-        expect(screen.getByRole('table')).toBeInTheDocument();
+
+        render(<BugInfo bug={bug} bugs={bugs} bugsList={bugs.getBugs()} setBugsList={setBugsList} setBug={setBug}/>);
+
+        expect(screen.getByRole('heading', { name: bug.name })).toBeInTheDocument();
     });
 
     it('should render form', async () => {
         let bugsList = bugs.getBugs();
         let bug = bugsList[0];
 
-        function setBugsList() {
-            bugsList = bugs.getBugs();
+        function setBugsList(newBugsList) {
+            bugsList = newBugsList;
         }
 
         function setBug(newBug) {
@@ -65,13 +65,12 @@ describe('BugsList component', () => {
         };
 
         const user = userEvent.setup();
-    
-        render(<BugsList bugs={bugs} bugsList={bugs.getBugs()} setBugsList={setBugsList} setBug={setBug}/>);
 
-        const addBugButton = screen.getByRole("button");
+        render(<BugInfo bug={bug} bugs={bugs} bugsList={bugs.getBugs()} setBugsList={setBugsList} setBug={setBug}/>);
+        const editBugButton = screen.getByRole("button", { name: "Edit" });
 
         await act( async () => {
-            await user.click(addBugButton);
+            await user.click(editBugButton);
         });
     
         expect(screen.getAllByRole("textbox")[0]).toBeInTheDocument();
@@ -81,8 +80,8 @@ describe('BugsList component', () => {
         let bugsList = bugs.getBugs();
         let bug = bugsList[0];
 
-        function setBugsList() {
-            bugsList = bugs.getBugs();
+        function setBugsList(newBugsList) {
+            bugsList = newBugsList;
         }
 
         function setBug(newBug) {
@@ -90,13 +89,12 @@ describe('BugsList component', () => {
         };
 
         const user = userEvent.setup();
-    
-        render(<BugsList bugs={bugs} bugsList={bugs.getBugs()} setBugsList={setBugsList} setBug={setBug}/>);
 
-        const addBugButton = screen.getByRole("button");
+        render(<BugInfo bug={bug} bugs={bugs} bugsList={bugs.getBugs()} setBugsList={setBugsList} setBug={setBug}/>);
+        const editBugButton = screen.getByRole("button", { name: "Edit" });
 
         await act( async () => {
-            await user.click(addBugButton);
+            await user.click(editBugButton);
         });
 
         const cancelButton = screen.getByRole("button", { name: "Cancel" });
@@ -105,7 +103,7 @@ describe('BugsList component', () => {
             await user.click(cancelButton);
         });
 
-        expect(screen.getByRole("button", { name: "+" })).toBeInTheDocument();
-    });
+        expect(screen.getByRole("button", { name: "Edit" })).toBeInTheDocument();
+    })
 
 });
