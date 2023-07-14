@@ -66,7 +66,7 @@ function BugTicket(props) {
 
 function ReactHookForm(props) {
 
-    const [isFormActive, setIsFormActive] = useState(true);
+    const [isFormActive, setIsFormActive] = useState(false);
 
     const { 
         register, 
