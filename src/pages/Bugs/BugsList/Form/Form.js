@@ -10,6 +10,7 @@ function Form(props) {
     const { 
         register, 
         handleSubmit, 
+        reset,
         formState: { errors } 
     } = useForm({
         defaultValues: {
@@ -34,6 +35,7 @@ function Form(props) {
         bugs.add(newBug);
         setBugsList(bugs.getBugs());
         setIsFormActive(false);
+        reset();
     }
 
     return(
@@ -121,7 +123,8 @@ function Form(props) {
                         className="bugsList__cancelButton"
                         onClick={e => {
                             e.preventDefault();
-                            isFormActive ? setIsFormActive(false) : setIsFormActive(true)
+                            isFormActive ? setIsFormActive(false) : setIsFormActive(true);
+                            reset();
                         }}
                     >
                         Cancel
