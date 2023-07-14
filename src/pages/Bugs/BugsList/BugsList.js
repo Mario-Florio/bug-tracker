@@ -83,7 +83,6 @@ function ReactHookForm(props) {
 
     const { bugs, setBugsList } = props;
 
-
     const submit = (data, e) => {
         e.preventDefault();
         let newBug = {
