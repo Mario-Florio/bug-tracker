@@ -168,7 +168,10 @@ function ReactHookForm(props) {
                     <button className="bugsList__submitButton">Submit</button>
                     <button 
                         className="bugsList__cancelButton"
-                        onClick={() => isFormActive ? setIsFormActive(false) : setIsFormActive(true)}
+                        onClick={e => {
+                            e.preventDefault();
+                            isFormActive ? setIsFormActive(false) : setIsFormActive(true)
+                        }}
                     >
                         Cancel
                     </button>
