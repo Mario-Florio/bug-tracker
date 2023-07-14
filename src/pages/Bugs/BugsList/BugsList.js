@@ -104,8 +104,10 @@ function ReactHookForm(props) {
                 className="bugsList__form"
                 onSubmit={handleSubmit((data, e) => submit(data, e))}
             >
-                <label>Name</label>
+                <label htmlFor='Name'>Name</label>
                 <input 
+                    type='text'
+                    name='Name'
                     className={errors.name ? "bugsList__input--invalid" : null}
                     {...register("name", 
                         { 
@@ -116,9 +118,10 @@ function ReactHookForm(props) {
                     placeholder='Name'
                 />
                 {errors.name ? <p className="bugs__errorMsg">{errors.name.message}</p> : null}
-                <label>Due Date</label>
+                <label htmlFor='Due Date'>Due Date</label>
                 <input
                     type='date'
+                    name=' Due Date'
                     className={errors.dueDate ? "bugsList__input--invalid" : null}
                     {...register("dueDate",
                         {
@@ -127,8 +130,9 @@ function ReactHookForm(props) {
                     )} 
                 />
                 {errors.dueDate ? <p className="bugs__errorMsg">{errors.dueDate.message}</p> : null}
-                <label>Description</label>
+                <label htmlFor='Description'>Description</label>
                 <textarea
+                    name='Description'
                     className={errors.description ? "bugsList__input--invalid" : null}
                     {...register("description", 
                         { 
@@ -140,15 +144,16 @@ function ReactHookForm(props) {
                 {errors.description ? <p className="bugs__errorMsg">{errors.description.message}</p> : null}
                 <label>Status:</label>
                 <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
-                    <label>Not Started</label>
+                    <label htmlFor='Not Started'>Not Started</label>
                     <input
                         type="radio"
+                        name='Not Started'
                         value={1}
                         {...register("status")}
                     />
                 </div>
                 <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
-                    <label>In Progress</label>
+                    <label htmlFor='In Progress'>In Progress</label>
                     <input
                         type="radio"
                         value={2}
@@ -156,9 +161,10 @@ function ReactHookForm(props) {
                     />
                 </div>
                 <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
-                    <label>Resolved</label>
+                    <label htmlFor='Resolved'>Resolved</label>
                     <input
                         type="radio"
+                        name='Resolved'
                         value={3}
                         {...register("status")}
                     />
