@@ -5,14 +5,12 @@ import uniqid from 'uniqid';
 
 function BugsList(props) {
 
-    const [formIsActive, setFormIsActive] = useState(false);
-
     const { bugs, bugsList, setBugsList, setBug } = props;
 
     return(
         <div className="bugsList">
             <table className="bugsList__table">
-                <thead>
+                <thead style={{position: "sticky", top: "7.7rem", backgroundColor: "rgb(19, 19, 19)"}}>
                     <tr className="bugsList__tableRow">
                         <th style={{textAlign: "left", width: "146px"}}>Name</th>
                         <th>Due Date</th>
@@ -23,12 +21,7 @@ function BugsList(props) {
                     {bugsList.map(bug => <BugTicket key={uniqid()} bug={bug} setBug={setBug} bugsList={bugsList}/>)}
                 </tbody>
             </table>
-            {formIsActive ?
-                <ReactHookForm bugs={bugs} setBugsList={setBugsList} setFormIsActive={setFormIsActive}/>
-            :
-                <button style={{margin: "1em 0"}} onClick={() => setFormIsActive(true)}>
-                    Add Bug
-                </button>}
+            <ReactHookForm bugs={bugs} setBugsList={setBugsList}/>
         </div>
     );
 }
@@ -73,6 +66,8 @@ function BugTicket(props) {
 
 function ReactHookForm(props) {
 
+    const [isFormActive, setIsFormActive] = useState(true);
+
     const { 
         register, 
         handleSubmit, 
@@ -86,12 +81,8 @@ function ReactHookForm(props) {
         }
     });
 
-    const { setFormIsActive, bugs, setBugsList } = props;
+    const { bugs, setBugsList } = props;
 
-    const handleCancel = e => {
-        e.preventDefault();
-        setFormIsActive(false);
-    };
 
     const submit = (data, e) => {
         e.preventDefault();
@@ -104,76 +95,93 @@ function ReactHookForm(props) {
         };
         bugs.add(newBug);
         setBugsList(bugs.getBugs());
-        setFormIsActive(false);
+        setIsFormActive(false);
     }
 
     return(
-        <form 
-            style={{
-                display: "flex", 
-                flexDirection: "column", 
-                alignItems: "start", 
-                color: "rgb(182, 182, 182)", 
-                margin: "1em 0 1em"
-            }}
-            onSubmit={handleSubmit((data, e) => submit(data, e))}>
-            <label>Name</label>
-            <input 
-                className={errors.name ? "bugs__input--invalid" : null}
-                {...register("name", 
-                    { 
-                        required: "This is required.", 
-                        maxLength: { value: 20, message: "Max length is 20." } 
-                    }
-                )} 
-                placeholder='Name'
-            />
-            {errors.name ? <p className="bugs__errorMsg">{errors.name.message}</p> : null}
-            <label>Due Date</label>
-            <input
-                type='date'
-                {...register("dueDate")} 
-            />
-            <label>Description</label>
-            <textarea
-                className={errors.description ? "bugs__input--invalid" : null}
-                {...register("description", 
-                    { 
-                        required: "This is required.", 
-                    }
-                )} 
-                placeholder='Description'
-            />
-            {errors.description ? <p className="bugs__errorMsg">{errors.description.message}</p> : null}
-            <label>Status</label>
-            <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
-                <label>Not Started</label>
-                <input
-                    type="radio"
-                    value={1}
-                    {...register("status")}
+        <div className="bugsList__formWrapper">
+            {isFormActive ?         
+            <form 
+                className="bugsList__form"
+                onSubmit={handleSubmit((data, e) => submit(data, e))}
+            >
+                <label>Name</label>
+                <input 
+                    className={errors.name ? "bugsList__input--invalid" : null}
+                    {...register("name", 
+                        { 
+                            required: "This is required.", 
+                            maxLength: { value: 20, message: "Max length is 20." } 
+                        }
+                    )} 
+                    placeholder='Name'
                 />
-            </div>
-            <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
-                <label>In Progress</label>
+                {errors.name ? <p className="bugs__errorMsg">{errors.name.message}</p> : null}
+                <label>Due Date</label>
                 <input
-                    type="radio"
-                    value={2}
-                    {...register("status")}
+                    type='date'
+                    className={errors.dueDate ? "bugsList__input--invalid" : null}
+                    {...register("dueDate",
+                        {
+                            required: "This is required.",
+                        }
+                    )} 
                 />
-            </div>
-            <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
-                <label>Resolved</label>
-                <input
-                    type="radio"
-                    value={3}
-                    {...register("status")}
+                {errors.dueDate ? <p className="bugs__errorMsg">{errors.dueDate.message}</p> : null}
+                <label>Description</label>
+                <textarea
+                    className={errors.description ? "bugsList__input--invalid" : null}
+                    {...register("description", 
+                        { 
+                            required: "This is required.", 
+                        }
+                    )} 
+                    placeholder='Description'
                 />
-            </div>
-            <div style={{margin: "1em 0"}}>
-                <button>Submit</button>
-                <button onClick={handleCancel}>Cancel</button>
-            </div>
-        </form>
+                {errors.description ? <p className="bugs__errorMsg">{errors.description.message}</p> : null}
+                <label>Status:</label>
+                <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
+                    <label>Not Started</label>
+                    <input
+                        type="radio"
+                        value={1}
+                        {...register("status")}
+                    />
+                </div>
+                <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
+                    <label>In Progress</label>
+                    <input
+                        type="radio"
+                        value={2}
+                        {...register("status")}
+                    />
+                </div>
+                <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
+                    <label>Resolved</label>
+                    <input
+                        type="radio"
+                        value={3}
+                        {...register("status")}
+                    />
+                </div>
+                <div style={{marginTop: ".7em"}}>
+                    <button className="bugsList__submitButton">Submit</button>
+                    <button 
+                        className="bugsList__cancelButton"
+                        onClick={() => isFormActive ? setIsFormActive(false) : setIsFormActive(true)}
+                    >
+                        Cancel
+                    </button>
+                </div>
+            </form>
+            :
+            <button 
+                className="bugsList__addButton" 
+                onClick={() => isFormActive ? setIsFormActive(false) : setIsFormActive(true)}
+            >
+                +
+            </button>
+            }
+        </div>
     );
 }
