@@ -68,7 +68,7 @@ function Display(props) {
 
     return(
         <>
-            <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+            <div style={{position: "sticky", top: "7.7rem", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "rgb(19, 19, 19)"}}>
                 <h3>{bug.name}</h3>
                 <p 
                     className={bug.status === 1 ? "bugs__notStarted" : bug.status === 2 ? "bugs__inProgress" : "bugs__resolved"}
