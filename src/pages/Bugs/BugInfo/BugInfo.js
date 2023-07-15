@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import "./BugInfo.css";
+import convertStatus from "../../../utils/global";
 
 function BugInfo(props) {
 
@@ -30,7 +31,7 @@ function BugInfo(props) {
                 :
                 <>
                     {editable ? 
-                        <ReactHookForm bugs={bugs} bug={bug} setBugsList={setBugsList} setEditable={setEditable}/>
+                        <Form bugs={bugs} bug={bug} setBugsList={setBugsList} setEditable={setEditable}/>
                     :
                         <Display bug={bug} setEditable={setEditable}/>    
                     }
@@ -43,47 +44,112 @@ function BugInfo(props) {
 
 export default BugInfo;
 
-function convertStatus(status) {
-    let statusStr
-    switch(status) {
-        case 1:
-            statusStr = "Not Started"
-            break;
-        case 2:
-            statusStr = "In Progress"
-            break;
-        case 3:
-            statusStr = "Resolved"
-            break;
-        default:
-            statusStr = null
-            break;
-    }
-    return statusStr;
-}
-
 function Display(props) {
 
     const { bug, setEditable } = props;
 
+    // let bugs = {
+    //     getBugs: () => {}
+    // };
+
+    // const setBugsList = () => {};
+
     return(
         <>
-            <div style={{position: "sticky", top: "7.7rem", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "rgb(19, 19, 19)"}}>
-                <h3>{bug.name}</h3>
-                <p 
-                    className={bug.status === 1 ? "bugs__notStarted" : bug.status === 2 ? "bugs__inProgress" : "bugs__resolved"}
-                >
-                    {convertStatus(bug.status)}
-                </p>
+            <div style={{position: "sticky", top: "8.88rem", backgroundColor: "rgb(19, 19, 19)"}}>
+                <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                    <h3 style={{margin: ".5em 0"}}>{bug.name}</h3>
+                    {/* <button 
+                        className={bug.status === 3 ? "bugInfo__statusButton--disabled" : "bugInfo__statusButton"}
+                    >
+                        {bug.status === 1 ? "Start" : bug.status === 2 ? "Complete" : "Completed"}
+                    </button> */}
+                    {/* <StatusForm bugs={bugs} bug={bug} setBugsList={setBugsList}/> */}
+                </div>
+                <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                    <p>{new Date(bug.dueDate).toLocaleDateString()}</p>
+                    <p 
+                        style={{margin: ".5em 0"}}
+                        className={bug.status === 1 ? "bugs__notStarted" : bug.status === 2 ? "bugs__inProgress" : "bugs__resolved"}
+                    >
+                        {convertStatus(bug.status)}
+                    </p>
+                </div>
             </div>
-            <p>{new Date(bug.dueDate).toLocaleDateString()}</p>
             <p style={{whiteSpace: "pre-wrap"}}>{bug.description}</p>
             <button onClick={() => setEditable(true)}>Edit</button>
         </>
     );
 }
 
-function ReactHookForm(props) {
+function StatusForm(props) {
+    const { bugs, bug, setBugsList } = props;
+
+    const { 
+        register, 
+        handleSubmit
+    } = useForm({
+        defaultValues: {
+            status: bug.status,
+        }
+    });
+
+    const submit = (data, e) => {
+        e.preventDefault();
+        let newBug = {
+            id: bug.id,
+            name: bug.name,
+            dueDate: new Date(bug.dueDate).toISOString().split('T')[0],
+            description: bug.description,
+            status: Number(bug.status)
+        };
+        bugs.edit(bug.id, newBug);
+        setBugsList(bugs.getBugs());
+    };
+
+    return(
+        <form>
+            <fieldset style={{}}>
+                <legend style={{display: "none"}}>Status</legend>
+                {   bug.status === 1 ?  
+                <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
+                    <label style={{display: "none"}} htmlFor="inProgress">In Progress</label>
+                    <input
+                        type="button"
+                        name="status"
+                        id="inProgress"
+                        value={2}
+                        {...register("status")}
+                    />
+                </div>            
+                    : bug.status === 2 ?             
+                <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
+                    <label style={{display: "none"}} htmlFor="resolved">Resolved</label>
+                    <input
+                        type="button"
+                        name="status"
+                        id="resolved"
+                        value={3}
+                        {...register("status")}
+                    >Complete</input>
+                </div>
+                    :             
+                <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
+                    <label style={{display: "none"}} htmlFor="notStarted">Not Started</label>
+                    <input
+                        type="button"
+                        name="status"
+                        id="notStarted"
+                        value={1}
+                        {...register("status")}
+                    />
+                </div>}
+            </fieldset>
+        </form>
+    )
+}
+
+function Form(props) {
 
     const { bugs, bug, setBugsList, setEditable } = props;
 
@@ -117,7 +183,7 @@ function ReactHookForm(props) {
         bugs.edit(bug.id, newBug);
         setBugsList(bugs.getBugs());
         setEditable(false);
-    }
+    };
 
     return(
         <form 
@@ -157,31 +223,39 @@ function ReactHookForm(props) {
                 placeholder='Description'
             />
             {errors.description ? <p className="bugs__errorMsg">{errors.description.message}</p> : null}
-            <label>Status</label>
-            <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
-                <label>Not Started</label>
-                <input
-                    type="radio"
-                    value={1}
-                    {...register("status")}
-                />
-            </div>
-            <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
-                <label>In Progress</label>
-                <input
-                    type="radio"
-                    value={2}
-                    {...register("status")}
-                />
-            </div>
-            <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
-                <label>Resolved</label>
-                <input
-                    type="radio"
-                    value={3}
-                    {...register("status")}
-                />
-            </div>
+            <fieldset>
+                <legend>Status</legend>
+                <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
+                    <label htmlFor="notStarted">Not Started</label>
+                    <input
+                        type="radio"
+                        name="status"
+                        id="notStarted"
+                        value={1}
+                        {...register("status")}
+                    />
+                </div>
+                <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
+                    <label htmlFor="inProgress">In Progress</label>
+                    <input
+                        type="radio"
+                        name="status"
+                        id="inProgress"
+                        value={2}
+                        {...register("status")}
+                    />
+                </div>
+                <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
+                    <label htmlFor="status">Resolved</label>
+                    <input
+                        type="radio"
+                        name="status"
+                        id="resolved"
+                        value={3}
+                        {...register("status")}
+                    />
+                </div>
+            </fieldset>
             <div style={{margin: "1em 0"}}>
                 <button>Submit</button>
                 <button onClick={handleCancel}>Cancel</button>

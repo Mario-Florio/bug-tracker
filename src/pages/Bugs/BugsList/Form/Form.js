@@ -11,6 +11,7 @@ function Form(props) {
         register, 
         handleSubmit, 
         reset,
+        defaultValues,
         formState: { errors } 
     } = useForm({
         defaultValues: {

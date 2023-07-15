@@ -54,13 +54,10 @@ function ResizableGrid(props) {
             margin={[20, 20]}
         >
             <div key="a" className="grid-comp">
-                <Card title={"Bugs"} bugsLength={bugsLength}/>
-            </div>
-            <div key="b" className="grid-comp">
-                <Card title={"Test Card"}/>
-            </div>
-            <div key="c" className="grid-comp">
-                <Card title={"Test Card"}/>
+                <CardHead title={"Bugs"}/>
+                <div style={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "1.5rem"}}>
+                    <p style={{color: "rgb(182, 182, 182)", fontSize: "9rem", margin: "0"}}>{bugsLength}</p>
+                </div>
             </div>
         </ResponsiveGridLayout>
     );
@@ -68,22 +65,19 @@ function ResizableGrid(props) {
 
 export default ResizableGrid;
 
-function Card(props) {
+function CardHead(props) {
 
-    const { title, bugsLength } = props;
+    const { title } = props;
 
     return(
         <>
             <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                 <h3 style={{color: "rgb(182, 182, 182)", fontWeight: "500", margin: ".7em"}}>{title}</h3>
-                <div style={{display: "flex", margin: ".1em .6em", padding: ".6em .1em", cursor: "pointer"}}>
+                <div style={{display: "flex", margin: ".1em .6em", padding: ".6em .1em", cursor: "grab"}}>
                     <div style={{backgroundColor: "#696969", margin: ".1em", height: "2px", width: "2px", borderRadius: "5px"}}></div>
                     <div style={{backgroundColor: "#696969", margin: ".1em", height: "2px", width: "2px", borderRadius: "5px"}}></div>
                     <div style={{backgroundColor: "#696969", margin: ".1em", height: "2px", width: "2px", borderRadius: "5px"}}></div>
                 </div>
-            </div>
-            <div style={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "1.5rem"}}>
-                <p style={{color: "rgb(182, 182, 182)", fontSize: "9rem", margin: "0"}}>{bugsLength}</p>
             </div>
         </>
     );

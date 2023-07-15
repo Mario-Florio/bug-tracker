@@ -1,5 +1,6 @@
 import './BugsList.css';
 import uniqid from 'uniqid';
+import convertStatus from '../../../utils/global';
 import Form from "./Form/Form";
 
 function BugsList(props) {
@@ -26,25 +27,6 @@ function BugsList(props) {
 }
 
 export default BugsList;
-
-function convertStatus(status) {
-    let statusStr
-    switch(status) {
-        case 1:
-            statusStr = "Not Started"
-            break;
-        case 2:
-            statusStr = "In Progress"
-            break;
-        case 3:
-            statusStr = "Resolved"
-            break;
-        default:
-            statusStr = null
-            break;
-    }
-    return statusStr;
-}
 
 function BugTicket(props) {
 
