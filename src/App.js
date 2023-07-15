@@ -12,8 +12,8 @@ function App() {
         <Navbar/>
         <SideMenu/>
         <Routes>
-          <Route path="/bug-tracker" element={<Dashboard/>}/>
-          <Route path="/bug-tracker/bugs" element={<Bugs/>}/>
+          <Route path="/" element={<Dashboard/>}/>
+          <Route path="/bugs" element={<Bugs/>}/>
         </Routes>
       </BrowserRouter>
     </div>
