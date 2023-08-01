@@ -2,7 +2,7 @@ import "./Bugs.css";
 import { useState } from "react";
 import BugInfo from "./BugInfo/BugInfo";
 import BugsList from "./BugsList/BugsList";
-import bugs from "../../bugs";
+import bugs from "../../server/bugs/bugs";
 
 function Bugs() {
 

@@ -1,7 +1,7 @@
 import "./Dashboard.css";
 import { useState } from "react";
 import ResizableGrid from "./ResizableGrid/ResizableGrid";
-import bugs from "../../bugs";
+import bugs from "../../server/bugs/bugs";
 
 function Dashboard() {
 
