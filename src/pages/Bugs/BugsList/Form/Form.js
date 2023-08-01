@@ -11,7 +11,6 @@ function Form(props) {
         register, 
         handleSubmit, 
         reset,
-        defaultValues,
         formState: { errors } 
     } = useForm({
         defaultValues: {
@@ -87,37 +86,39 @@ function Form(props) {
                     placeholder='Description'
                 />
                 {errors.description ? <p className="bugs__errorMsg">{errors.description.message}</p> : null}
-                <label htmlFor='status'>Status:</label>
-                <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
-                    <label htmlFor='notStarted'>Not Started</label>
-                    <input
-                        type="radio"
-                        name='status'
-                        id='notStarted'
-                        value={1}
-                        {...register("status")}
-                    />
-                </div>
-                <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
-                    <label htmlFor='inProgress'>In Progress</label>
-                    <input
-                        type="radio"
-                        name='status'
-                        id='inProgress'
-                        value={2}
-                        {...register("status")}
-                    />
-                </div>
-                <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
-                    <label htmlFor='resolved'>Resolved</label>
-                    <input
-                        type="radio"
-                        name='status'
-                        id='resolved'
-                        value={3}
-                        {...register("status")}
-                    />
-                </div>
+                <fieldset style={{border: "none", margin: "0", padding: "0"}}>
+                    <legend style={{padding: "0"}}>Status:</legend>
+                    <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
+                        <label htmlFor="notStarted">Not Started</label>
+                        <input
+                            type="radio"
+                            name="status"
+                            id="notStarted"
+                            value={1}
+                            {...register("status")}
+                        />
+                    </div>
+                    <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
+                        <label htmlFor="inProgress">In Progress</label>
+                        <input
+                            type="radio"
+                            name="status"
+                            id="inProgress"
+                            value={2}
+                            {...register("status")}
+                        />
+                    </div>
+                    <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
+                        <label htmlFor="status">Resolved</label>
+                        <input
+                            type="radio"
+                            name="status"
+                            id="resolved"
+                            value={3}
+                            {...register("status")}
+                        />
+                    </div>
+                </fieldset>
                 <div style={{marginTop: ".7em"}}>
                     <button className="bugsList__submitButton">Submit</button>
                     <button 

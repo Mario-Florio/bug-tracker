@@ -48,23 +48,11 @@ function Display(props) {
 
     const { bug, setEditable } = props;
 
-    // let bugs = {
-    //     getBugs: () => {}
-    // };
-
-    // const setBugsList = () => {};
-
     return(
         <>
             <div style={{position: "sticky", top: "8.88rem", backgroundColor: "rgb(19, 19, 19)"}}>
                 <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                     <h3 style={{margin: ".5em 0"}}>{bug.name}</h3>
-                    {/* <button 
-                        className={bug.status === 3 ? "bugInfo__statusButton--disabled" : "bugInfo__statusButton"}
-                    >
-                        {bug.status === 1 ? "Start" : bug.status === 2 ? "Complete" : "Completed"}
-                    </button> */}
-                    {/* <StatusForm bugs={bugs} bug={bug} setBugsList={setBugsList}/> */}
                 </div>
                 <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                     <p>{new Date(bug.dueDate).toLocaleDateString()}</p>
@@ -80,73 +68,6 @@ function Display(props) {
             <button onClick={() => setEditable(true)}>Edit</button>
         </>
     );
-}
-
-function StatusForm(props) {
-    const { bugs, bug, setBugsList } = props;
-
-    const { 
-        register, 
-        handleSubmit
-    } = useForm({
-        defaultValues: {
-            status: bug.status,
-        }
-    });
-
-    const submit = (data, e) => {
-        e.preventDefault();
-        let newBug = {
-            id: bug.id,
-            name: bug.name,
-            dueDate: new Date(bug.dueDate).toISOString().split('T')[0],
-            description: bug.description,
-            status: Number(bug.status)
-        };
-        bugs.edit(bug.id, newBug);
-        setBugsList(bugs.getBugs());
-    };
-
-    return(
-        <form>
-            <fieldset style={{}}>
-                <legend style={{display: "none"}}>Status</legend>
-                {   bug.status === 1 ?  
-                <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
-                    <label style={{display: "none"}} htmlFor="inProgress">In Progress</label>
-                    <input
-                        type="button"
-                        name="status"
-                        id="inProgress"
-                        value={2}
-                        {...register("status")}
-                    />
-                </div>            
-                    : bug.status === 2 ?             
-                <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
-                    <label style={{display: "none"}} htmlFor="resolved">Resolved</label>
-                    <input
-                        type="button"
-                        name="status"
-                        id="resolved"
-                        value={3}
-                        {...register("status")}
-                    >Complete</input>
-                </div>
-                    :             
-                <div style={{display: "flex", justifyContent: "space-between", width: "110px"}}>
-                    <label style={{display: "none"}} htmlFor="notStarted">Not Started</label>
-                    <input
-                        type="button"
-                        name="status"
-                        id="notStarted"
-                        value={1}
-                        {...register("status")}
-                    />
-                </div>}
-            </fieldset>
-        </form>
-    )
 }
 
 function Form(props) {
