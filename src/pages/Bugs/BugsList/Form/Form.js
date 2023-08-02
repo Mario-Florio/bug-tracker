@@ -1,7 +1,6 @@
 import "./Form.css";
 import { useState } from 'react';
 import { useForm } from "react-hook-form";
-import uniqid from 'uniqid';
 
 function Form(props) {
 
@@ -26,7 +25,6 @@ function Form(props) {
     const submit = (data, e) => {
         e.preventDefault();
         let newBug = {
-            id: uniqid(),
             name: data.name,
             dueDate: new Date(data.dueDate).toISOString().split('T')[0],
             description: data.description,
