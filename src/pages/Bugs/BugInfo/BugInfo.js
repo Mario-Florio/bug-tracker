@@ -35,7 +35,7 @@ function BugInfo(props) {
                     :
                         <Display bug={bug} setEditable={setEditable}/>    
                     }
-                    <button onClick={handleDeletion}>Delete</button>
+                    <button className='bugs__button3' onClick={handleDeletion}>Delete</button>
                 </>
             }
         </div>
@@ -48,11 +48,16 @@ function Display(props) {
 
     const { bug, setEditable } = props;
 
+    // mock project
+    const projects = []
+    const getProject = projects.forEach(project => project.id === bug.projectId ? project : "")
+
     return(
         <>
             <div style={{position: "sticky", top: "8.88rem", backgroundColor: "rgb(19, 19, 19)"}}>
                 <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                     <h3 style={{margin: ".5em 0"}}>{bug.name}</h3>
+                    <h4 style={{fontWeight: ""}}>{getProject}</h4>
                 </div>
                 <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                     <p>{new Date(bug.dueDate).toLocaleDateString()}</p>
@@ -65,7 +70,12 @@ function Display(props) {
                 </div>
             </div>
             <p style={{whiteSpace: "pre-wrap"}}>{bug.description}</p>
-            <button onClick={() => setEditable(true)}>Edit</button>
+            <button 
+                className='bugs__button1'
+                onClick={() => setEditable(true)}
+            >
+                Edit
+            </button>
         </>
     );
 }
@@ -178,8 +188,8 @@ function Form(props) {
                 </div>
             </fieldset>
             <div style={{margin: "1em 0"}}>
-                <button>Submit</button>
-                <button onClick={handleCancel}>Cancel</button>
+                <button className='bugs__button1'>Submit</button>
+                <button className='bugs__button2' onClick={handleCancel}>Cancel</button>
             </div>
         </form>
     );
