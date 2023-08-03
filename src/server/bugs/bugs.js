@@ -14,13 +14,13 @@ function getBugs() {
 
 function add(bug) {
     let newBugId = uniqid();
-    let newBug = new Bug(newBugId, bug.name, bug.description, bug.dueDate, bug.status);
+    let newBug = new Bug(newBugId, bug.name, bug.description, bug.dueDate, bug.status, bug.projectId);
     bugsList.push(newBug);
     localStorage.setItem(BUGS_KEY, JSON.stringify(bugsList));
 }
 
 function edit(id, change) {
-    let editedBug = new Bug(id, change.name, change.description, change.dueDate, change.status);
+    let editedBug = new Bug(id, change.name, change.description, change.dueDate, change.status, change.projectId);
     bugsList = bugsList.map(bug => bug.id === id ? editedBug : bug);
     localStorage.setItem(BUGS_KEY, JSON.stringify(bugsList));
 }
@@ -41,11 +41,12 @@ export default bugs;
 
 // Bug Prototype
 class Bug {
-    constructor(id, name, description, dueDate, status) {
+    constructor(id, name, description, dueDate, status=1, projectId=null) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.dueDate = new Date(dueDate).toISOString().split('T')[0] || new Date().toISOString().split('T')[0];
         this.status = Number(status) || 1;
+        this.projectId = projectId || null;
     }
 }
