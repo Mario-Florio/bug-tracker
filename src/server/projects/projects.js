@@ -46,14 +46,5 @@ class Project {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.bugIds = [];
-    }
-    addBug(id) {
-        this.bugIds.push(id);
-        edit(this.id, this);
-    }
-    removeBug(id) {
-        this.bugIds = this.bugIds.filter(bugId => bugId !== id);
-        edit(this.id, this);
     }
 }
