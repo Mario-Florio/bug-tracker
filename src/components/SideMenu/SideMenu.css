@@ -2,7 +2,7 @@
 .sideMenu {
     z-index: 2;
     position: fixed;
-    right: -350px;
+    left: -350px;
     background: linear-gradient(to bottom, rgb(19, 19, 19), rgb(31, 31, 31));
     background-repeat: no-repeat;
     background-size: cover;
@@ -13,7 +13,7 @@
 .sideMenu--active {
     z-index: 2;
     position: fixed;
-    right: -350px;
+    left: 0;
     background: linear-gradient(to bottom, rgb(19, 19, 19), rgb(31, 31, 31));
     background-repeat: no-repeat;
     background-size: cover;
@@ -25,7 +25,6 @@
 .sideMenu__linksWrapper {
     display: flex;
     flex-direction: column;
-    align-items: center;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -33,11 +32,10 @@
 
 .sideMenu__link {
     display: flex;
-    justify-content: center;
-    align-items: center;
     color: rgb(182, 182, 182);
-    padding: 1rem 1.5rem;
+    padding: 1rem 1.5rem 1rem 5rem;
     text-decoration: none;
+    transition-duration: .4s;
 }
 
 .sideMenu__link:hover {
@@ -46,38 +44,23 @@
 
 .sideMenu__link--active {
     display: flex;
-    justify-content: center;
-    align-items: center;
     color: rgb(182, 182, 182);
     background-color: black;
-    padding: 1rem 1.5rem .85rem;
+    padding: 1rem 1.5rem .85rem 5rem;
     text-decoration: none;
     border-bottom: solid 2px rgb(0, 119, 255);
     cursor: initial;
+    transition-duration: .4s;
 }
 
 @media screen and (max-width: 700px) {
-    .sideMenu {
-        z-index: 2;
-        position: fixed;
-        right: -350px;
-        background: linear-gradient(to bottom, rgb(19, 19, 19), rgb(31, 31, 31));
-        background-repeat: no-repeat;
-        background-size: cover;
-        height: 100dvh;
-        width: 350px;
+    .sideMenu__link {
+        padding-left: 2rem;
         transition-duration: .4s;
     }
-    
-    .sideMenu--active {
-        z-index: 2;
-        position: fixed;
-        right: 0;
-        background: linear-gradient(to bottom, rgb(19, 19, 19), rgb(31, 31, 31));
-        background-repeat: no-repeat;
-        background-size: cover;
-        height: 100dvh;
-        width: 350px;
+
+    .sideMenu__link--active {
+        padding-left: 2rem;
         transition-duration: .4s;
     }
 }
