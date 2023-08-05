@@ -1,16 +1,21 @@
 import "./Dashboard.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ResizableGrid from "./ResizableGrid/ResizableGrid";
 import bugs from "../../server/bugs/bugs";
+import events from "../../utils/pub-sub";
 
 function Dashboard() {
 
-    const [bugsLength, setBugsLength] = useState(bugs.getBugs().length);
+    const [bugsListLength, setBugsListLength] = useState(bugs.getBugs().length);
+
+    useEffect(() => {
+        events.emit("Bugs state set", bugs.getBugs());
+    }, [])
 
     return(
         <div>
             <h2 className="page__header">Dashboard</h2>
-            <ResizableGrid bugsLength={bugsLength}/>
+            <ResizableGrid bugsListLength={bugsListLength}/>
         </div>
     );
 }

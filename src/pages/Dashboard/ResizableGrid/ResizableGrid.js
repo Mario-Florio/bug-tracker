@@ -7,7 +7,7 @@ const ResponsiveGridLayout = WidthProvider(Responsive);
 
 function ResizableGrid(props) {
 
-    const { bugsLength } = props;
+    const { bugsListLength } = props;
 
     const layout1 = [
         { i: "a", x: 0, y: 0, w: 10, h: 15 },
@@ -56,7 +56,7 @@ function ResizableGrid(props) {
             <div key="a" className="grid-comp">
                 <CardHead title={"Bugs"}/>
                 <div style={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "1.5rem"}}>
-                    <p style={{color: "rgb(182, 182, 182)", fontSize: "9rem", margin: "0"}}>{bugsLength}</p>
+                    <p style={{color: "rgb(182, 182, 182)", fontSize: "9rem", margin: "0"}}>{bugsListLength}</p>
                 </div>
             </div>
         </ResponsiveGridLayout>

@@ -2,8 +2,13 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import "./BugInfo.css";
 import convertStatus from "../../../utils/global";
+import uniqid from "uniqid";
+
+import projects from "../../../server/projects/projects";
 
 function BugInfo(props) {
+
+    let projectsList = projects.getProjects();
 
     const { bugs, bug, setBug, bugsList, setBugsList } = props;
     const [editable, setEditable] = useState(false);
@@ -17,11 +22,6 @@ function BugInfo(props) {
         setIndex(bugsList.indexOf(bug));
     }, [bug]);
 
-    const handleDeletion = () => {
-        bugs.delete(bug.id);
-        setBugsList(bugs.getBugs());
-    };
-
     return(
         <div className="bugInfo">
             {bug === undefined ?
@@ -31,11 +31,16 @@ function BugInfo(props) {
                 :
                 <>
                     {editable ? 
-                        <Form bugs={bugs} bug={bug} setBugsList={setBugsList} setEditable={setEditable}/>
+                        <Form bugs={bugs} bug={bug} setBugsList={setBugsList} setEditable={setEditable} projectsList={projectsList}/>
                     :
-                        <Display bug={bug} setEditable={setEditable}/>    
+                        <Display bug={bug} projectsList={projectsList}/>    
                     }
-                    <button className='bugs__button3' onClick={handleDeletion}>Delete</button>
+                    <button 
+                        className={editable ? 'bugs__button2' : 'bugs__button1'}
+                        onClick={() => editable ? setEditable(false) : setEditable(true)}
+                    >
+                        {editable ? "Cancel" : "Edit"}
+                    </button>
                 </>
             }
         </div>
@@ -46,18 +51,22 @@ export default BugInfo;
 
 function Display(props) {
 
-    const { bug, setEditable } = props;
+    const { bug, projectsList } = props;
 
-    // mock project
-    const projects = []
-    const getProject = projects.forEach(project => project.id === bug.projectId ? project : "")
+    const getProject = () => {
+        let projectName;
+        for (let i = 0; i < projectsList.length; i++) {
+            if (projectsList[i].id === bug.projectId) projectName = projectsList[i].name;
+        }
+        return projectName;
+    }
 
     return(
         <>
             <div style={{position: "sticky", top: "8.88rem", backgroundColor: "rgb(19, 19, 19)"}}>
                 <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                     <h3 style={{margin: ".5em 0"}}>{bug.name}</h3>
-                    <h4 style={{fontWeight: ""}}>{getProject}</h4>
+                    <h4 style={{fontWeight: ""}}>{getProject()}</h4>
                 </div>
                 <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
                     <p>{new Date(bug.dueDate).toLocaleDateString()}</p>
@@ -70,19 +79,13 @@ function Display(props) {
                 </div>
             </div>
             <p style={{whiteSpace: "pre-wrap"}}>{bug.description}</p>
-            <button 
-                className='bugs__button1'
-                onClick={() => setEditable(true)}
-            >
-                Edit
-            </button>
         </>
     );
 }
 
 function Form(props) {
 
-    const { bugs, bug, setBugsList, setEditable } = props;
+    const { bugs, bug, setBugsList, setEditable, projectsList } = props;
 
     const { 
         register, 
@@ -94,12 +97,13 @@ function Form(props) {
             dueDate: new Date(bug.dueDate).toISOString().split('T')[0],
             description: bug.description,
             status: bug.status,
+            projectId: bug.projectId,
         }
     });
 
-    const handleCancel = e => {
-        e.preventDefault();
-        setEditable(false);
+    const handleDeletion = () => {
+        bugs.delete(bug.id);
+        setBugsList(bugs.getBugs());
     };
 
     const submit = (data, e) => {
@@ -109,7 +113,8 @@ function Form(props) {
             name: data.name,
             dueDate: new Date(data.dueDate).toISOString().split('T')[0],
             description: data.description,
-            status: Number(data.status)
+            status: Number(data.status),
+            projectId: data.projectId,
         };
         bugs.edit(bug.id, newBug);
         setBugsList(bugs.getBugs());
@@ -187,9 +192,22 @@ function Form(props) {
                     />
                 </div>
             </fieldset>
+            <label htmlFor="projectId">Project:</label>
+            <select 
+                name="projectId" 
+                id="projectId" 
+                {...register("projectId")} 
+            >
+                <option value={""}>None</option>
+                {projectsList.map(project => {
+                    return <option key={uniqid()} value={project.id}>
+                                {project.name}
+                            </option>
+                })}
+            </select>
             <div style={{margin: "1em 0"}}>
                 <button className='bugs__button1'>Submit</button>
-                <button className='bugs__button2' onClick={handleCancel}>Cancel</button>
+                <button className='bugs__button4' onClick={handleDeletion}>Delete</button>
             </div>
         </form>
     );

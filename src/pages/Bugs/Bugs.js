@@ -1,13 +1,18 @@
 import "./Bugs.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BugInfo from "./BugInfo/BugInfo";
 import BugsList from "./BugsList/BugsList";
 import bugs from "../../server/bugs/bugs";
+import events from "../../utils/pub-sub";
 
 function Bugs() {
 
     const [bugsList, setBugsList] = useState(bugs.getBugs());
     const [bug, setBug] = useState(bugsList[0]);
+
+    useEffect(() => {
+        events.emit("Bugs state changed", bugsList);
+    }, [bugsList]);
 
     return(
         <div>
