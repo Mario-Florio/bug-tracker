@@ -4,6 +4,7 @@ import Navbar from './components/Navbar/Navbar';
 import SideMenu from './components/SideMenu/SideMenu';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Bugs from './pages/Bugs/Bugs';
+import Projects from './pages/Projects/Projects';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Dashboard/>}/>
           <Route path="/bugs" element={<Bugs/>}/>
+          <Route path='/projects' element={<Projects/>}/>
         </Routes>
       </HashRouter>
     </div>
