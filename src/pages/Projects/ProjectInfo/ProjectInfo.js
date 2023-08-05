@@ -30,15 +30,15 @@ function ProjectInfo(props) {
                         :
                         <Display project={project}/>
                     }
+                    <button 
+                        className={editable ? 'bugs__button2' : 'bugs__button1'}
+                        onClick={() => editable ? setEditable(false) : setEditable(true)}
+                    >
+                        {editable ? "Cancel" : "Edit"}
+                    </button>
                 </>
 
             }
-            <button 
-                className={editable ? 'bugs__button2' : 'bugs__button1'}
-                onClick={() => editable ? setEditable(false) : setEditable(true)}
-            >
-                {editable ? "Cancel" : "Edit"}
-            </button>
         </div>
     );
 }
@@ -51,8 +51,8 @@ function Display(props) {
 
     return(
         <>
-            <h3>{project.name}</h3>
-            <p>{project.description}</p>
+            <h3 style={{position: "sticky", top: "8.88rem", backgroundColor: "rgb(19, 19, 19)"}}>{project.name}</h3>
+            <p style={{whiteSpace: "pre-wrap"}}>{project.description}</p>
         </>
     );
 }
