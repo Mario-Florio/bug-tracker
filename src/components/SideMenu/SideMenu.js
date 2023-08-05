@@ -37,6 +37,14 @@ function SideMenu() {
                         Bugs
                     </NavLink>
                 </li>
+                <li style={{width: "100%"}}>
+                    <NavLink 
+                        to="/projects" 
+                        className={({ isActive }) => isActive ? 'sideMenu__link--active' : "sideMenu__link"}
+                    >
+                        Projects
+                    </NavLink>
+                </li>
             </ul>
         </div>
     );
