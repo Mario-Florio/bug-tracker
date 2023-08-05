@@ -1,7 +1,6 @@
 import "./ProjectInfo.css";
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import uniqid from "uniqid";
 
 function ProjectInfo(props) {
 
