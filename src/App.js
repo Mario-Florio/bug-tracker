@@ -7,12 +7,14 @@ import Dashboard from './pages/Dashboard/Dashboard';
 import Bugs from './pages/Bugs/Bugs';
 import Projects from './pages/Projects/Projects';
 import bugs from './server/bugs/bugs';
+import projects from './server/projects/projects';
 import events from './utils/pub-sub';
 
 function App() {
 
   useEffect(() => {
     events.emit("Bugs state set", bugs.getBugs());
+    events.emit("Projects state set", projects.getProjects());
   }, [])
 
   return (
