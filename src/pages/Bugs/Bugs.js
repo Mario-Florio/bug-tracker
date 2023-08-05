@@ -11,7 +11,7 @@ function Bugs() {
     const [bug, setBug] = useState(bugsList[0]);
 
     useEffect(() => {
-        events.emit("Bugs state changed", bugsList);
+        events.emit("Bugs state set", bugsList);
     }, [bugsList]);
 
     return(

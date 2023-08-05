@@ -16,10 +16,6 @@ function SideMenu() {
             if (bugsList.length === 0) setBugsListLength(null);
             setBugsListLength(bugsList.length);
         })
-        events.on("Bugs state changed", bugsList => {
-            if (bugsList.length === 0) setBugsListLength(null);
-            setBugsListLength(bugsList.length);
-        });
 
         return () => {
             events.off("Hamburger Menu Toggled");

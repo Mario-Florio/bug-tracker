@@ -1,12 +1,20 @@
 import './App.css';
+import { useEffect } from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import SideMenu from './components/SideMenu/SideMenu';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Bugs from './pages/Bugs/Bugs';
 import Projects from './pages/Projects/Projects';
+import bugs from './server/bugs/bugs';
+import events from './utils/pub-sub';
 
 function App() {
+
+  useEffect(() => {
+    events.emit("Bugs state set", bugs.getBugs());
+  }, [])
+
   return (
     <div className="App">
       <HashRouter>
