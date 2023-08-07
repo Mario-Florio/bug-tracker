@@ -5,12 +5,12 @@ import bugs from "../../server/bugs/bugs";
 
 function Dashboard() {
 
-    const [bugsListLength, setBugsListLength] = useState(bugs.getBugs().length);
+    const [bugsList, setBugsList] = useState(bugs.getBugs());
 
     return(
         <div>
             <h2 className="page__header">Dashboard</h2>
-            <ResizableGrid bugsListLength={bugsListLength}/>
+            <ResizableGrid bugsList={bugsList}/>
         </div>
     );
 }
