@@ -146,8 +146,13 @@ function Form(props) {
             <label>Due Date</label>
             <input
                 type='date'
-                {...register("dueDate")} 
+                {...register("dueDate",
+                        {
+                            required: "This is required.",
+                        }
+                )} 
             />
+            {errors.dueDate ? <p className="bugs__errorMsg">{errors.dueDate.message}</p> : null}
             <label>Description</label>
             <textarea
                 className={errors.description ? "bugs__input--invalid" : null}
