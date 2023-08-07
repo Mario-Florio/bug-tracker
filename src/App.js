@@ -15,7 +15,7 @@ function App() {
   useEffect(() => {
     events.emit("Bugs state set", bugs.getBugs());
     events.emit("Projects state set", projects.getProjects());
-  }, [])
+  }, []);
 
   return (
     <div className="App">
