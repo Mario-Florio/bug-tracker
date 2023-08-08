@@ -33,7 +33,7 @@ function ResizableGrid(props) {
     const layout1 = [
         { i: "a", x: 0, y: 0, w: 10, h: 15, isResizable: false },
         { i: "b", x: 10, y: 0, w: 10, h: 15 },
-        { i: "c", x: 0, y: 10, w: 10, h: 15 }
+        { i: "c", x: 0, y: 10, w: 10, h: 22 }
     ]
 
     const layout2 = [
@@ -45,25 +45,26 @@ function ResizableGrid(props) {
     const layout3 = [
         { i: "a", x: 0, y: 0, w: 20, h: 15 },
         { i: "b", x: 20, y: 0, w: 20, h: 15 },
-        { i: "c", x: 40, y: 0, w: 20, h: 15 }
+        { i: "c", x: 0, y: 15, w: 47, h: 15 }
     ]
 
     const layout4 = [
         { i: "a", x: 0, y: 0, w: 33, h: 15 },
         { i: "b", x: 33, y: 0, w: 33, h: 15 },
-        { i: "c", x: 66, y: 0, w: 33, h: 15 }
+        { i: "c", x: 0, y: 15, w: 67, h: 15 }
     ]
 
     const layout5 = [
         { i: "a", x: 0, y: 0, w: 40, h: 15 },
         { i: "b", x: 40, y: 0, w: 40, h: 15 },
-        { i: "c", x: 80, y: 0, w: 40, h: 15 }
+        { i: "c", x: 0, y: 15, w: 93, h: 15 }
     ]
 
     const layouts = { lg: layout5, md: layout4, sm: layout3, xs: layout2, xxs: layout1 };
 
     for (let key of Object.keys(layouts)) {
         layouts[key][0].isResizable = false;
+        layouts[key][2].isResizable = false;
     }
   
     return (
@@ -86,13 +87,14 @@ function ResizableGrid(props) {
             </div>
             <div key="c" className="grid-comp">
                 <CardHead title={"Bugs by Status"}/>
-                <div style={{display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", margin: "2.5rem 2rem"}}>
+                <div style={{display: "flex", flexWrap: "wrap", justifyContent: "space-around", alignItems: "center", margin: "1.5rem 1rem"}}>
                     <div>
                         <div 
                             style={{
                                 display: "flex",
                                 justifyContent: "center",
                                 alignItems: "center",
+                                margin: "1rem 1rem",
                                 width: "140px",
                                 height: "140px",
                                 backgroundImage: `conic-gradient(rgb(212, 90, 51) 0%, rgb(212, 90, 51) ${getPercentages(1)}, #404040 ${getPercentages(1)}, #404040 100%)`,
@@ -133,6 +135,7 @@ function ResizableGrid(props) {
                                 display: "flex",
                                 justifyContent: "center",
                                 alignItems: "center",
+                                margin: "1rem 1rem",
                                 width: "140px",
                                 height: "140px",
                                 backgroundImage: `conic-gradient(rgb(62, 212, 51) 0%, rgb(62, 212, 51) ${getPercentages(2)}, #404040 ${getPercentages(2)}, #404040 100%)`,
@@ -173,6 +176,7 @@ function ResizableGrid(props) {
                                 display: "flex",
                                 justifyContent: "center",
                                 alignItems: "center",
+                                margin: "1rem 1rem",
                                 width: "140px",
                                 height: "140px",
                                 backgroundImage: `conic-gradient(rgb(148, 148, 148) 0%, rgb(148, 148, 148) ${getPercentages(3)}, #404040 ${getPercentages(3)}, #404040 100%)`,
@@ -221,7 +225,7 @@ function CardHead(props) {
 
     return(
         <>
-            <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+            <div style={{position: "sticky", top: "0", display: "flex", justifyContent: "space-between", alignItems: "center", backgroundColor: "#252525"}}>
                 <h3 style={{color: "rgb(182, 182, 182)", fontWeight: "500", margin: ".7em"}}>{title}</h3>
                 <div style={{display: "flex", margin: ".1em .6em", padding: ".6em .1em", cursor: "grab"}}>
                     <div style={{backgroundColor: "#696969", margin: ".1em", height: "2px", width: "2px", borderRadius: "5px"}}></div>
