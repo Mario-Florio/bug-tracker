@@ -2,6 +2,7 @@ import "/node_modules/react-grid-layout/css/styles.css";
 import "/node_modules/react-resizable/css/styles.css";
 import "./ResizableGrid.css";
 import { Responsive, WidthProvider } from "react-grid-layout";
+import layouts from "./layouts";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -9,64 +10,6 @@ function ResizableGrid(props) {
 
     const { bugsList } = props;
 
-    function getPercentages(val) {
-        let tracker = 0;
-
-        for (let i = 0; i < bugsList.length; i++) {
-            if (bugsList[i].status === val) tracker++;
-        }
-
-        let percentage = Math.round((tracker / bugsList.length) * 100) + "%";
-        return percentage;
-    }
-
-    function getAmount(val) {
-        let tracker = 0;
-
-        for (let i = 0; i < bugsList.length; i++) {
-            if (bugsList[i].status === val) tracker++;
-        }
-
-        return tracker;
-    }
-
-    const layout1 = [
-        { i: "a", x: 0, y: 0, w: 10, h: 15, isResizable: false },
-        { i: "b", x: 10, y: 0, w: 10, h: 15 },
-        { i: "c", x: 0, y: 10, w: 10, h: 22 }
-    ]
-
-    const layout2 = [
-        { i: "a", x: 0, y: 0, w: 15, h: 15 },
-        { i: "b", x: 15, y: 0, w: 15, h: 15 },
-        { i: "c", x: 0, y: 15, w: 30, h: 15 }
-    ]
-
-    const layout3 = [
-        { i: "a", x: 0, y: 0, w: 20, h: 15 },
-        { i: "b", x: 20, y: 0, w: 20, h: 15 },
-        { i: "c", x: 0, y: 15, w: 47, h: 15 }
-    ]
-
-    const layout4 = [
-        { i: "a", x: 0, y: 0, w: 33, h: 15 },
-        { i: "b", x: 33, y: 0, w: 33, h: 15 },
-        { i: "c", x: 0, y: 15, w: 67, h: 15 }
-    ]
-
-    const layout5 = [
-        { i: "a", x: 0, y: 0, w: 40, h: 15 },
-        { i: "b", x: 40, y: 0, w: 40, h: 15 },
-        { i: "c", x: 0, y: 15, w: 93, h: 15 }
-    ]
-
-    const layouts = { lg: layout5, md: layout4, sm: layout3, xs: layout2, xxs: layout1 };
-
-    for (let key of Object.keys(layouts)) {
-        layouts[key][0].isResizable = false;
-        layouts[key][2].isResizable = false;
-    }
-  
     return (
         <ResponsiveGridLayout
             className="layout resizableGrid"
@@ -76,141 +19,22 @@ function ResizableGrid(props) {
             rowHeight={1}
             compactType={"vertical"}
             isBounded={true}
+            isResizable={false}
             resizeHandles={['s', 'e', 'se']}
             margin={[20, 20]}
         >
-            <div key="a" className="grid-comp">
+            <div key="totalBugs_widget" className="grid-comp">
                 <CardHead title={"Total Bugs"}/>
                 <div style={{display: "flex", justifyContent: "center", alignItems: "center", marginTop: "1.5rem"}}>
                     <p style={{color: "rgb(182, 182, 182)", fontSize: "9rem", margin: "0"}}>{bugsList.length}</p>
                 </div>
             </div>
-            <div key="c" className="grid-comp">
+            <div key="bugsStatus_widget" className="grid-comp">
                 <CardHead title={"Bugs by Status"}/>
                 <div style={{display: "flex", flexWrap: "wrap", justifyContent: "space-around", alignItems: "center", margin: "1.5rem 1rem"}}>
-                    <div>
-                        <div 
-                            style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                margin: "1rem 1rem",
-                                width: "140px",
-                                height: "140px",
-                                backgroundImage: `conic-gradient(rgb(212, 90, 51) 0%, rgb(212, 90, 51) ${getPercentages(1)}, #404040 ${getPercentages(1)}, #404040 100%)`,
-                                borderRadius: "50%",
-                            }}
-                        >
-                            <div 
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    height: "110px",
-                                    width: "110px",
-                                    backgroundColor: "#202020",
-                                    borderRadius: "50%"
-                                }}
-                            >
-                                <div>
-                                    <p 
-                                        style={{                                    
-                                            color: "rgb(182, 182, 182)",
-                                            fontSize: "2rem",
-                                            fontWeight: "500",
-                                            textAlign: "center",
-                                            margin: "0"
-                                        }}
-                                    >
-                                        {getAmount(1)}
-                                    </p>
-                                    <h4 style={{textAlign: "center", color: "rgb(130, 130, 130)", margin: "0", fontSize: ".9rem", fontWeight: "400"}}>Not Started</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div 
-                            style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                margin: "1rem 1rem",
-                                width: "140px",
-                                height: "140px",
-                                backgroundImage: `conic-gradient(rgb(62, 212, 51) 0%, rgb(62, 212, 51) ${getPercentages(2)}, #404040 ${getPercentages(2)}, #404040 100%)`,
-                                borderRadius: "50%",
-                            }}
-                        >
-                            <div 
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    height: "110px",
-                                    width: "110px",
-                                    backgroundColor: "#202020",
-                                    borderRadius: "50%"
-                                }}
-                            >
-                                <div>
-                                    <p 
-                                        style={{                                    
-                                            color: "rgb(182, 182, 182)",
-                                            fontSize: "2rem",
-                                            fontWeight: "500",
-                                            textAlign: "center",
-                                            margin: "0"
-                                        }}
-                                    >
-                                        {getAmount(2)}
-                                    </p>
-                                    <h4 style={{textAlign: "center", color: "rgb(130, 130, 130)", margin: "0", fontSize: ".9rem", fontWeight: "400"}}>In Progress</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div 
-                            style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                margin: "1rem 1rem",
-                                width: "140px",
-                                height: "140px",
-                                backgroundImage: `conic-gradient(rgb(148, 148, 148) 0%, rgb(148, 148, 148) ${getPercentages(3)}, #404040 ${getPercentages(3)}, #404040 100%)`,
-                                borderRadius: "50%",
-                            }}
-                        >
-                            <div 
-                                style={{
-                                    display: "flex",
-                                    justifyContent: "center",
-                                    alignItems: "center",
-                                    height: "110px",
-                                    width: "110px",
-                                    backgroundColor: "#202020",
-                                    borderRadius: "50%"
-                                }}
-                            >
-                                <div>
-                                    <p 
-                                        style={{                                    
-                                            color: "rgb(182, 182, 182)",
-                                            fontSize: "2rem",
-                                            fontWeight: "500",
-                                            textAlign: "center",
-                                            margin: "0"
-                                        }}
-                                    >
-                                        {getAmount(3)}
-                                    </p>
-                                    <h4 style={{textAlign: "center", color: "rgb(130, 130, 130)", margin: "0", fontSize: ".9rem", fontWeight: "400"}}>Resolved</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <Pie status={"Not Started"} bugsList={bugsList}/>
+                    <Pie status={"In Progress"} bugsList={bugsList}/>
+                    <Pie status={"Resolved"} bugsList={bugsList}/>
                 </div>
             </div>
         </ResponsiveGridLayout>
@@ -234,5 +58,79 @@ function CardHead(props) {
                 </div>
             </div>
         </>
+    );
+}
+
+function Pie(props) {
+
+    const { status, bugsList} = props;
+
+    const val = status === "Not Started" ? 1 : status === "In Progress" ? 2 : 3;
+    const color = status === "Not Started" ? "rgb(212, 90, 51)" : status === "In Progress" ? "rgb(62, 212, 51)" : "rgb(148, 148, 148)";
+
+    function getPercentages(val) {
+        let tracker = 0;
+
+        for (let i = 0; i < bugsList.length; i++) {
+            if (bugsList[i].status === val) tracker++;
+        }
+
+        let percentage = Math.round((tracker / bugsList.length) * 100) + "%";
+        return percentage;
+    }
+
+    function getAmount(val) {
+        let tracker = 0;
+
+        for (let i = 0; i < bugsList.length; i++) {
+            if (bugsList[i].status === val) tracker++;
+        }
+
+        return tracker;
+    }
+
+    return(
+        <div 
+            // abstract styling into dynamic classNames?
+            style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                margin: "1rem 1rem",
+                width: "140px",
+                height: "140px",
+                backgroundImage: `conic-gradient(${color} 0%, ${color} ${getPercentages(val)}, #404040 ${getPercentages(val)}, #404040 100%)`,
+                borderRadius: "50%",
+            }}
+        >
+            <div 
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "110px",
+                    width: "110px",
+                    backgroundColor: "#202020",
+                    borderRadius: "50%"
+                }}
+            >
+                <div>
+                    <p 
+                        style={{                                    
+                            color: "rgb(182, 182, 182)",
+                            fontSize: "2rem",
+                            fontWeight: "500",
+                            textAlign: "center",
+                            margin: "0"
+                        }}
+                    >
+                        {getAmount(val)}
+                    </p>
+                    <h4 style={{textAlign: "center", color: "rgb(130, 130, 130)", margin: "0", fontSize: ".9rem", fontWeight: "400"}}>
+                        {status}
+                    </h4>
+                </div>
+            </div>
+        </div>
     );
 }
