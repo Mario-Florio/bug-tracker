@@ -21,7 +21,7 @@ function ProjectsList(props) {
             </table>
             <Form projects={projects} setProjectsList={setProjectsList}/>
         </div>
-    )
+    );
 }
 
 export default ProjectsList;
@@ -68,10 +68,9 @@ function Form(props) {
     }
 
     return(
-        <div className="bugsList__formWrapper">
-            {isFormActive ?         
+        isFormActive ?         
             <form 
-                className="bugsList__form"
+                className="bugsList__form bugsList__sticky"
                 onSubmit={handleSubmit((data, e) => submit(data, e))}
             >
                 <label htmlFor='name'>Name</label>
@@ -118,12 +117,10 @@ function Form(props) {
             </form>
             :
             <button 
-                className="bugsList__addButton" 
+                className="bugsList__addButton bugsList__sticky" 
                 onClick={() => isFormActive ? setIsFormActive(false) : setIsFormActive(true)}
             >
                 +
             </button>
-            }
-        </div>
     );
 }
