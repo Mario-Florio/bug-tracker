@@ -70,10 +70,10 @@ function Form(props) {
     return(
         isFormActive ?         
             <form 
-                className="bugsList__form bugsList__sticky"
+                className='bugsList__form bugsList__sticky'
                 onSubmit={handleSubmit((data, e) => submit(data, e))}
             >
-                <label htmlFor='name'>Name</label>
+                <label htmlFor='name' id='name'>Name</label>
                 <input 
                     type='text'
                     name='name'
@@ -88,7 +88,7 @@ function Form(props) {
                     placeholder='Name'
                 />
                 {errors.name ? <p className="bugs__errorMsg">{errors.name.message}</p> : null}
-                <label htmlFor='description'>Description</label>
+                <label htmlFor='description' id='description'>Description</label>
                 <textarea
                     name='description'
                     id='description'
