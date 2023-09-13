@@ -1,21 +1,33 @@
 import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useEffect } from 'react';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import SideMenu from './components/SideMenu/SideMenu';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Bugs from './pages/Bugs/Bugs';
+import Projects from './pages/Projects/Projects';
+import bugs from './server/bugs/bugs';
+import projects from './server/projects/projects';
+import events from './utils/pub-sub';
 
 function App() {
+
+  useEffect(() => {
+    events.emit("Bugs state set", bugs.getBugs());
+    events.emit("Projects state set", projects.getProjects());
+  }, []);
+
   return (
     <div className="App">
-      <BrowserRouter>
+      <HashRouter>
         <Navbar/>
         <SideMenu/>
         <Routes>
-          <Route path="/bug-tracker" element={<Dashboard/>}/>
-          <Route path="/bug-tracker/bugs" element={<Bugs/>}/>
+          <Route path="/" element={<Dashboard/>}/>
+          <Route path="/bugs" element={<Bugs/>}/>
+          <Route path='/projects' element={<Projects/>}/>
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </div>
   );
 }

@@ -2,7 +2,7 @@
   "name": "bug-tracker",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Mario-Florio.github.io/bug-tracker",
+  "homepage": "https://Mario-Florio.github.io/bug-tracker/#",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",

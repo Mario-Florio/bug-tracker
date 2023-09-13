@@ -7,22 +7,20 @@ function Navbar() {
 
     return(
         <nav className="navbar">
-            <ul>
-                <li>
-                    <NavLink 
-                        to="/" 
-                        className="navbar__logo"
-                    >
-                        <div>Bug Tracker</div>
-                    </NavLink>
-                </li>
-            </ul>
+            <div style={{display: "flex", alignItems: "center"}}>
+                <HamburgerMenu />
+                <NavLink 
+                    to="/"
+                    className="navbar__logo"
+                >
+                    <div>Bug Tracker</div>
+                </NavLink>
+            </div>
             <ul className="navbar__linksWrapper">
                 <li>
                     <NavLink 
                         to="/" 
                         className={({ isActive }) => isActive ? 'navbar__link--active' : "navbar__link"}
-                        data-testid="navbar__dashboardLink"
                     >
                         Dashboard
                     </NavLink>
@@ -31,13 +29,11 @@ function Navbar() {
                     <NavLink 
                         to="/bugs" 
                         className={({ isActive }) => isActive ? 'navbar__link--active' : "navbar__link"}
-                        data-testid="navbar__bugsLink"
                     >
                         Bugs
                     </NavLink>
                 </li>
             </ul>
-            <HamburgerMenu />
         </nav>
     );
 }

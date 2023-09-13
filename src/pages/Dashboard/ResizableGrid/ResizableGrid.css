@@ -9,7 +9,7 @@
 .grid-comp {
     border-radius: 5px;
     background-color: #65656536;
-    overflow: hidden;
+    overflow: scroll;
     backdrop-filter: blur(10px);
 }
 

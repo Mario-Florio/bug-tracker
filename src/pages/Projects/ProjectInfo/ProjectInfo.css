@@ -1,12 +1,12 @@
 
-.bugInfo {
+.projectInfo {
     color: rgb(182, 182, 182);
-    margin: 0 5rem;
+    margin: 0 5rem; 
     transition-duration: .4s;
 }
 
-@media all and (max-width: 700px) {
-    .bugInfo {
+@media screen and (max-width: 700px) {
+    .projectInfo {
         margin: 0 2rem;
         transition-duration: .4s;
     }

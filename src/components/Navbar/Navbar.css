@@ -21,7 +21,7 @@ ul {
     font-weight: 600;
     color: rgb(182, 182, 182);
     text-decoration: none;
-    margin-left: 5rem;
+    margin-left: 1em;
     height: 69px;
     transition-duration: .4s;
 }
@@ -59,20 +59,30 @@ ul {
 /* Hamburger Menu */
 
 .navbar__hamburgerMenu {
-    display: none;
-    margin-right: 2rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 5rem;
+    height: 69px;
     cursor: pointer;
+    transition-duration: .4s;
 }
 
 .navbar__hamburgerMenu--active {
-    display: none;
-    margin-right: 2rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 5rem;
+    height: 69px;
     cursor: pointer;
+    transition-duration: .4s;
 }
 
 .hamburgerMenu__bar1, .hamburgerMenu__bar2, .hamburgerMenu__bar3 {
     background-color: rgb(182, 182, 182);
-    margin: 5px 0;
+    margin: 2.5px 0;
     height: 3px;
     width: 30px;
     border-radius: 1px;
@@ -102,10 +112,12 @@ ul {
     }
 
     .navbar__hamburgerMenu {
-        display: initial;
+        margin-left: 2rem;
+        transition-duration: .4s;
     }
 
     .navbar__hamburgerMenu--active {
-        display: initial;
+        margin-left: 2rem;
+        transition-duration: .4s;
     }
 }
